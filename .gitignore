@@ -24,3 +24,18 @@ results/
 *.history*
 *.vscode*
 *.node_modules*
+
+.env.local
+.env.production
+.env.development
+
+# Firebase cache and local environment files
+.firebase/
+.firebaserc
+
+# Firebase config files with sensitive data
+# Add these if you have different Firebase configurations for different environments.
+firebase-debug.log
+firebase-debug.*.log
+
+*firebase-adminsdk*.json
