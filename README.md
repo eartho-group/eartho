@@ -43,6 +43,36 @@
   </tr>
 </table>
 
+<br />
+
+<div>
+<div align="">
+  <h2>Current Challenges in User Access</h2>
+</div>
+
+<ul>
+  <li><strong>Long-Term Data Ownership:</strong> 
+    Using major platforms for login often means surrendering control of your data indefinitely. Users want clarity on who owns their data and how it’s stored and managed over time.
+  </li>
+  
+  <li><strong>I hate being bombarded with targeted ads after logging in:</strong> 
+    Users are tired of their login data being used for advertising. They want a login that allows them to access apps without being tracked or targeted.
+  </li>
+  
+  <li><strong>Fragmented Digital Identities:</strong> 
+    With accounts scattered across platforms like Google, Facebook, LinkedIn, and more, managing logins becomes complex. People need a unified, secure way to access apps without losing track of their identities.
+  </li>
+  
+  <li><strong>I don’t want to be forced to share my real identity:</strong> 
+    Some users prefer to log in with minimal details, without needing to disclose personal information like email, phone number, or full name.
+  </li>
+  
+  <li><strong>What happens to my accounts when I die?</strong> 
+    Many are concerned about the future of their digital identity. They want clear control over how their accounts are managed if they’re no longer around, protecting their digital legacy.
+  </li>
+</ul>
+
+</div>
 
 <br />
 
