@@ -123,7 +123,7 @@ Eartho serves as a privacy-focused layer between users and major authentication 
    - When a user selects a login option (e.g., Google or Facebook), Eartho wraps the process, acting as an intermediary between the user and the authentication provider.
    
 2. **Eartho as the Provider**:
-   - While users still authenticate via their preferred service, Eartho handles the interaction and prevents the original provider (Google, Facebook, etc.) from seeing the internal application logic, user actions, or any personal data beyond what’s required for authentication.
+   - While users still authenticate via their preferred service, Eartho handles the interaction and prevents the original provider (Google, Facebook, etc.) from seeing the service you use.
 
 3. **Data Protection**:
    - All authentication data is encrypted and protected by Eartho. Big Tech providers can only process the basic login flow, but they cannot track the user's activity, personal preferences, or any other data within the app. Eartho ensures your users’ privacy by restricting data access only to the login process.
