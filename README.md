@@ -79,10 +79,11 @@
 **Ready and Available** ✅
 
 - **Multi-Provider Authentication**: Log in via Google, Facebook, Apple, GitHub, MetaMask, and more.
-- **Seamless Developer Integration**: Quick setup with minimal code for easy logins.
 - **Zero Tracking**: No data tracking—user information remains private.
 - **Two-Factor Authentication (2FA)**: Secure logins with SMS, email, or authenticator apps.
 - **Recent Activity Review**: Monitor and review account activity for unauthorized access.
+- **Self-Managed Login History**: View, download, or delete login history to monitor and manage account access.
+- **Seamless Developer Integration**: Quick setup with minimal code for easy logins.
 
 **In Progress** 🚧
 
