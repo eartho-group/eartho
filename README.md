@@ -251,17 +251,6 @@ Eartho is built for developers who care about privacy and security, but don't wa
 
 - **Auth.js**: Our one module use auth.js
 
-## Installation
-
-...
-
-## Usage
-
-...
-
-## Configuration
-
-...
 
 ## **Developer? Add Eartho to Your App**
 
@@ -315,8 +304,6 @@ Enhance your app’s authentication with Eartho. It provides a **privacy-first l
    }
    ```
 
-4. **Integrate Eartho Pay**  
-   Eartho’s **integrated payment system** removes the need for manual connections between authentication and payment systems. Charge users securely, with ease.
 
 ### **Supported Platforms**
 Eartho works seamlessly with a wide range of environments, including:
@@ -346,7 +333,6 @@ Eartho supports a wide range of authentication methods, allowing users to log in
 - **Reddit**: Login via Reddit for users active on the platform.
 - **Yandex**: A secure login option through Yandex.
 - **MetaMask**: For crypto enthusiasts, log in using your MetaMask wallet.
-- **Wave**: Authentication via Wave for added flexibility.
 
 ### **How It Works**:
 Eartho wraps these providers, acting as a privacy layer, which means your login process goes through Eartho. This ensures that while the authentication provider can verify your credentials, they don't gain access to your app activity or personal information—keeping your data safe and secure.
@@ -361,6 +347,8 @@ Eartho wraps these providers, acting as a privacy layer, which means your login 
 <p>
   We welcome contributions from the open-source community! If you'd like to contribute to Eartho, please follow these steps:
 </p>
+
+<h3>Fork & PR</h3>
 <ol>
   <li><strong>Fork the repository</strong> on GitHub.</li>
   <li><strong>Create a new branch</strong> for your feature or fix: <br>
@@ -379,6 +367,14 @@ Eartho wraps these providers, acting as a privacy layer, which means your login 
   <a href="link_to_contributing_guide">Contributing Guide</a> before submitting a pull request. 
   Contributions can range from code improvements, documentation updates, or even bug reports. Every contribution helps make Eartho better for everyone!
 </p>
+
+<h3>Installation</h3>
+
+Instructions Per Package
+
+<h3>Configuration</h3>
+
+Instructions Per Package
 
 <h2>Community & Support</h2>
 <p>
