@@ -103,6 +103,11 @@
 <p>- Use the icon version for buttons or login screens where space is limited.</p>
 <p>- Incorporate Eartho icons into the user interface to signal secure actions or privacy.</p>
 
+<h2 id="downloadable-assets">Buttons Example</h2>
+<p>
+https://html-preview.github.io/?url=https://github.com/eartho-group/eartho/blob/main/brand/buttons-example.html
+</p>
+
 <h2 id="downloadable-assets">Downloadable Assets</h2>
 <p>You can download all of our official branding assets for your use directly from our repository.</p>
 <ul>
