@@ -3,51 +3,201 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eartho Login Buttons</title>
+    <title>Sign in with Eartho</title>
+    <style>
+        @font-face {
+            font-family: 'Geist';
+            src: url('https://assets.vercel.com/fonts/Geist-Regular.woff2') format('woff2'),
+                 url('https://assets.vercel.com/fonts/Geist-Regular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Geist', sans-serif;
+            background-color: #fbfbfd;
+            color: #1d1d1f;
+            line-height: 1.47059;
+            font-weight: 400;
+        }
+
+        .container {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 120px 20px;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        h1 {
+            font-size: 56px;
+            line-height: 1.07143;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 28px;
+            line-height: 1.10722;
+            font-weight: 400;
+            color: #6e6e73;
+            margin-bottom: 50px;
+        }
+
+        .buttons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            padding: 0 20px;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .label {
+            font-size: 21px;
+            line-height: 1.381;
+            font-weight: 500;
+            color: #1d1d1f;
+            margin-bottom: 12px;
+        }
+
+        button {
+            background-color: #000;
+            color: #fff;
+            border: none;
+            padding: 16px 32px;
+            font-size: 17px;
+            line-height: 1.23536;
+            font-weight: 400;
+            font-family: 'Geist', sans-serif;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 280px;
+            position: relative;
+            z-index: 1;
+        }
+
+        button img {
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+        }
+
+        button:hover {
+            transform: scale(0.98);
+            opacity: 0.9;
+        }
+
+        .white-background {
+            background-color: #fff;
+            color: #000;
+            border: 1px solid #d2d2d7;
+            box-shadow: 0 1px 1px rgba(0,0,0,0.04);
+        }
+
+        .white-background:hover {
+            background-color: #f5f5f7;
+            border-color: #d2d2d7;
+        }
+
+        .circular {
+            border-radius: 980px;
+        }
+
+        .rounded {
+            border-radius: 18px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 100px;
+            padding-top: 40px;
+            border-top: 1px solid #d2d2d7;
+            color: #6e6e73;
+            font-size: 14px;
+        }
+
+        @media (max-width: 734px) {
+            .container {
+                padding: 60px 20px;
+            }
+
+            h1 {
+                font-size: 40px;
+            }
+
+            .subtitle {
+                font-size: 21px;
+            }
+
+            .buttons-grid {
+                gap: 30px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <div class="hero">
+            <h1>Sign in with Eartho</h1>
+            <p class="subtitle">Choose your preferred sign-in method.</p>
+        </div>
 
-    <h1>Eartho Login Buttons</h1>
+        <div class="buttons-grid">
+            <div class="button-container">
+                <span class="label">Standard</span>
+                <button>
+                    <img src="https://github.com/eartho-group/media/blob/main/icon.png?raw=true" alt="Eartho Icon">
+                    Sign in with Eartho
+                </button>
+            </div>
 
-    <!-- Version 1: Simple Button with Text -->
-    <h3>Simple Button with Text</h3>
-    <button style="background-color: #1976D2; color: #fff; border: none; padding: 10px 20px; font-size: 16px; cursor: pointer;">
-        Sign in with Eartho
-    </button>
+            <div class="button-container">
+                <span class="label">Rounded</span>
+                <button class="rounded">
+                    <img src="https://github.com/eartho-group/media/blob/main/icon.png?raw=true" alt="Eartho Icon">
+                    Sign in with Eartho
+                </button>
+            </div>
 
-    <br><br>
+            <div class="button-container">
+                <span class="label">Light</span>
+                <button class="white-background">
+                    <img src="https://github.com/eartho-group/media/blob/main/icon.png?raw=true" alt="Eartho Icon">
+                    Sign in with Eartho
+                </button>
+            </div>
 
-    <!-- Version 2: Button with Icon and Text -->
-    <h3>Button with Icon and Text</h3>
-    <button style="background-color: #1976D2; color: #fff; border: none; padding: 10px 20px; font-size: 16px; cursor: pointer; display: flex; align-items: center;">
-        <img src="https://github.com/eartho-group/media/blob/main/icon.png" alt="Eartho Icon" width="20px" style="margin-right: 10px;">
-        Sign in with Eartho
-    </button>
+            <div class="button-container">
+                <span class="label">Circular</span>
+                <button class="white-background circular">
+                    <img src="https://github.com/eartho-group/media/blob/main/icon.png?raw=true" alt="Eartho Icon">
+                    Sign in with Eartho
+                </button>
+            </div>
+        </div>
 
-    <br><br>
-
-    <!-- Version 3: Rounded Button with Shadow -->
-    <h3>Rounded Button with Shadow</h3>
-    <button style="background-color: #1976D2; color: #fff; border: none; padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 25px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
-        Sign in with Eartho
-    </button>
-
-    <br><br>
-
-    <!-- Version 4: Button with Hover Effect -->
-    <h3>Button with Hover Effect</h3>
-    <button style="background-color: #1976D2; color: #fff; border: none; padding: 10px 20px; font-size: 16px; cursor: pointer;" onmouseover="this.style.backgroundColor='#165a9e'" onmouseout="this.style.backgroundColor='#1976D2'">
-        Sign in with Eartho
-    </button>
-
-    <br><br>
-
-    <!-- Version 5: Button with Icon, Rounded Corners, and Hover Effect -->
-    <h3>Button with Icon, Rounded Corners, and Hover Effect</h3>
-    <button style="background-color: #1976D2; color: #fff; border: none; padding: 10px 20px; font-size: 16px; cursor: pointer; display: flex; align-items: center; border-radius: 25px;" onmouseover="this.style.backgroundColor='#165a9e'" onmouseout="this.style.backgroundColor='#1976D2'">
-        <img src="https://github.com/eartho-group/media/blob/main/icon.png" alt="Eartho Icon" width="20px" style="margin-right: 10px;">
-        Sign in with Eartho
-    </button>
-
+        <div class="footer">
+            Learn more about Eartho sign-in options and privacy practices.
+        </div>
+    </div>
 </body>
 </html>
