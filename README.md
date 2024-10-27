@@ -4,9 +4,9 @@
   </a>
   <h1>The Open-Source, <br /> Privacy-Focused Alternative to Google Sign-In <br/> (In Construction, Join Us)</h1>
   <p>
-    <b>Eartho</b> is an open-source authentication alternative that prioritizes user privacy.
-    It offers a flexible, secure, and privacy-first alternative to traditional login providers like Google Sign-In, Apple, or Facebook.
-    Eartho ensures that users' personal data stays protected from Big Tech tracking, while developers benefit from a simple, easy-to-integrate solution.
+    <b>Eartho</b> is an open-source sign-in alternative for users that prioritizes user privacy.<br />
+    It offers a flexible, secure, and privacy-first alternative to traditional login providers like Google Sign-In, Apple, or Facebook.<br />
+    Eartho ensures that users' personal data stays protected from Big Tech tracking, while developers benefit from a simple, easy-to-integrate solution.<br />
   </p>
 </div>
 
