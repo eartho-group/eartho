@@ -26,7 +26,7 @@ export default function Page() {
       return;
     }
 
-    if (!accessId) {
+    if (!accessId && entityData?.mode != 'lite') {
       console.error("Access id is missing");
       return;
     }

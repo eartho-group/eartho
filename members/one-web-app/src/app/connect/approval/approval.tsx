@@ -65,8 +65,8 @@ const ApprovalComponent: FC<ApprovalComponentProps> = ({ }) => {
 
     const searchParams = useSearchParams();
     const { data: session } = useSession();
-    const accessId = searchParams?.get("access_id");
     const clientId = searchParams?.get("client_id");
+    const accessId = searchParams?.get("access_id") || clientId;
 
     const accessService = AccessService();
 

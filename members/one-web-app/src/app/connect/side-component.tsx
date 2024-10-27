@@ -18,6 +18,7 @@ export const metadata: Metadata = {
 export interface EntityData {
   previewLogo?: string;
   previewTitle?: string;
+  mode?: string;
 }
 
 async function getData(clientId: string, accessId: string): Promise<{ entity?: EntityData } | null> {

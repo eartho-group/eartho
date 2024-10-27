@@ -39,7 +39,7 @@ export default async function Page({
   }
 
   if (!clientId) return "Client id is missing"
-  if (!accessId) return "Access id is missing"
+  // if (!accessId) return "Access id is missing"
 
   const session = await auth()
   if(session){

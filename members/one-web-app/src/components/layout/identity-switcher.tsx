@@ -40,6 +40,7 @@ type Identity = {
   photoURL?: string;
   displayName?: string;
   firstName?: string;
+  email?: string;
 };
 
 type PopoverTriggerProps = React.ComponentPropsWithoutRef<typeof PopoverTrigger>;
@@ -77,7 +78,7 @@ const IdentitySwitcher: React.FC<IdentitySwitcherProps> = ({ identities, classNa
   }, [identities, initialGroups]);
 
   function getName(identity?: Identity | null) {
-    return identity?.displayName || identity?.firstName || "";
+    return identity?.displayName || identity?.firstName || identity?.email || "";
   }
 
   return (
@@ -97,7 +98,7 @@ const IdentitySwitcher: React.FC<IdentitySwitcherProps> = ({ identities, classNa
                 alt={getName(selectedTeam)}
                 className="grayscale"
               />
-              <AvatarFallback>{(selectedTeam?.displayName || selectedTeam?.firstName)?.[0]}</AvatarFallback>
+              <AvatarFallback>{getName(selectedTeam)?.[0]}</AvatarFallback>
             </Avatar>
             {getName(selectedTeam)}
             <CaretSortIcon className="ml-auto h-4 w-4 shrink-0 opacity-50" />

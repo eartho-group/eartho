@@ -18,7 +18,7 @@ export const fetchAccessData = async (accessToken: string, accessId: string, cli
         const payment = terms?.userProvides?.payment || terms?.payment;
 
         let hasPayment = false;
-        if (payment?.type) {
+        if (payment?.type && payment?.type != 'none') {
             hasPayment = true;
             termsBadges = [formatPaymentText(payment.price, payment.type, payment.currency, payment.duration, t)];
         }

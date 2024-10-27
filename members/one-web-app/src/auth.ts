@@ -96,7 +96,7 @@ const authOptions: NextAuthConfig = {
       checks: ["none"],
     }),
     AppleProvider({
-      clientId: "auth.one.eartho.io",
+      clientId: process.env.AUTH_APPLE_CLIENT_ID!,
       clientSecret: process.env.AUTH_APPLE_TOKEN!,
       profile(profile) {
         return {

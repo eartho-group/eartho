@@ -11,7 +11,7 @@ import { useTranslations } from 'next-intl';
 interface EntityData {
   previewLogo?: string;
   previewTitle?: string;
-  // Add other fields if necessary
+  mode?: string;
 }
 
 export default function Page() {
@@ -46,7 +46,7 @@ export default function Page() {
   };
 
   if (!clientId) return t('Client id is missing');
-  if (!accessId) return t('Access id is missing');
+  if (!accessId && entityData?.mode != 'lite') return t('Access id is missing');
 
   const queryParams = new URLSearchParams(searchParams as any).toString();
   const newUrl = `/connect/approval?${queryParams}`;

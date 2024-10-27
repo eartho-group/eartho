@@ -26,7 +26,7 @@ export default function Page() {
     const clientId = searchParams.get('client_id') || '';
     const scope = searchParams.get('scope') || '';
     const audience = searchParams.get('audience') || '';
-    const accessId = searchParams.get('access_id') || '';
+    const accessId = searchParams.get('access_id') || clientId || '';
     const responseType = searchParams.get('response_type') || '';
     const responseMode = searchParams.get('response_mode') || '';
     const state = searchParams.get('state') || '';
@@ -46,10 +46,10 @@ export default function Page() {
       return;
     }
 
-    if (!accessId) {
-      setErrorMessage('Access ID is missing.');
-      return;
-    }
+    // if (!accessId && entityData?.mode != 'lite') {
+    //   setErrorMessage('Access ID is missing.');
+    //   return;
+    // }
 
     const fetchData = async () => {
       try {
