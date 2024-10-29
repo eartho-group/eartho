@@ -41,7 +41,7 @@
     "zone.js": "~0.11.8"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^13.3.11",
+    "@angular-devkit/build-angular": "^18.2.10",
     "@angular-eslint/builder": "13.5.0",
     "@angular-eslint/eslint-plugin": "13.5.0",
     "@angular-eslint/eslint-plugin-template": "13.5.0",
@@ -56,7 +56,7 @@
     "@types/node": "^12.19.8",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
-    "browserstack-cypress-cli": "^1.27.0",
+    "browserstack-cypress-cli": "^1.31.9",
     "concurrently": "^6.2.0",
     "cors": "^2.8.5",
     "eslint": "^8.56.0",
@@ -70,7 +70,7 @@
     "jwks-rsa": "^3.1.0",
     "moment": "^2.29.4",
     "ng-packagr": "^13.3.1",
-    "oidc-provider": "^7.6.0",
+    "oidc-provider": "^8.5.2",
     "prettier": "^2.8.8",
     "pretty-quick": "^2.0.2",
     "protractor": "~7.0.0",
