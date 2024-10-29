@@ -27,8 +27,8 @@ public let DEFAULT_MIN_TTL = 60 * 30;
 
 
 public class EarthoOne {
-    public let defaultDomain = "https://one.eartho.world/"
-    public let defaultAuthDomain = "https://api.eartho.world/"
+    public let defaultDomain = "https://one.eartho.io"
+    public let defaultAuthDomain = "https://api.eartho.io/"
     
     private let clientId : String
     private let clientSecret : String
@@ -59,7 +59,7 @@ public class EarthoOne {
      * device does not support the necessary algorithms to support Proof of Key Exchange (PKCE)
      * (this is not expected), or if the user closed the browser before completing the authentication.
      *
-     * @param accessId The access point id the user is going to connect to. https://creator.eartho.world
+     * @param accessId The access point id the user is going to connect to. https://creator.eartho.io
      * @param onSuccess to receive the parsed results
      * @param onFailure to receive the parsed errors
      * @see AuthenticationException.isBrowserAppNotAvailable

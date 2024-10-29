@@ -48,7 +48,7 @@ final class EarthoOneWebAuth: WebAuth {
     lazy var redirectURL: URL? = {
         guard let bundleIdentifier = Bundle.main.bundleIdentifier else { return nil }
         var components = URLComponents(url: self.url, resolvingAgainstBaseURL: true)
-        components?.scheme = bundleIdentifier+".one.eartho.world"
+        components?.scheme = bundleIdentifier+".one.eartho.io"
         return components?.url?
             .appendingPathComponent(self.platform)
             .appendingPathComponent("callback")
@@ -257,7 +257,7 @@ final class EarthoOneWebAuth: WebAuth {
 
     private func handler(_ redirectURL: URL) -> OAuth2Grant {
         var authentication = EarthoOneAuthentication(clientId: self.clientId,clientSecret: self.clientSecret,
-                                                     url: .httpsURL(from: "https://api.eartho.world/"),
+                                                     url: .httpsURL(from: "https://api.eartho.io/"),
                                                  session: self.session,
                                                  telemetry: self.telemetry)
         authentication.logger = self.logger

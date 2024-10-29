@@ -1,5 +1,5 @@
 app_identifier "com.eartho.EarthoOne" # The bundle identifier of your app
-apple_id "contact@eartho.world" # Your Apple email address
+apple_id "contact@eartho.io" # Your Apple email address
 
 team_id "86WQXF56BC"  # Developer Portal Team ID
 
