@@ -19,7 +19,7 @@ class LoginFragment : Fragment() {
 
     private val config: EarthoOneConfig by lazy {
         val clientId = "x5wNs5h7EiyhxzODBe1X";
-        val clientSecret = "-----BEGIN PUBLIC KEY----- MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAya48nKOC9nIiQfayHpkF RkF7QD8PoX6JVhUuQMPY96ybAZYeaQJih8gpn/sqD03DCZmBhaF+UQBzWP14ycax baTD+j0DRF3zdxSk5RognHfcNq++dgr+dPR7jvuTOpX7YdWEdSSnu2XRXjHparwx jw5oTVQbd8IhSecurz/d72d55cWIO7LrmiONdz2unCYnNfT3txJ2TpY1O+8lPlmO GOcbMB67XI+HPviQdSg9q+0xFCbkbgInkCNCRAYol30bT7+jszfoKHTv1+xU22gZ xSH9rnpDS4txvcXDmMBGM6UV3h3RkQFr2BkQJqPXpo82oYv6DvoUIygV+N5vyXUV LQIDAQAB -----END PUBLIC KEY-----"
+        val clientSecret = ""
 
         // -- REPLACE this credentials with your own Eartho app credentials!
         val account = EarthoOneConfig(clientId, clientSecret)
@@ -42,15 +42,15 @@ class LoginFragment : Fragment() {
             earthoOne.init();
         }
         binding.buttonWebAuth.setOnClickListener {
-            earthoOne.connectWithRedirect("2drlTkv19Alfvu9pEPTP", onSuccess = { result ->
+            earthoOne.connectWithRedirect("QJkg3evAtIqJgF80iB1o", onSuccess = { result ->
                 result.idToken
             });
         }
         binding.buttonFetchUser.setOnClickListener {
             val result = earthoOne.getUser() ?: return@setOnClickListener
 
-            binding.result.text = "Connected\n" + result.displayName
-            binding.resultImage.setImageURI(Uri.parse(result.photoURL))
+            binding.result.text = "Connected\n" + (result.displayName ?: result.email)
+//            binding.resultImage.setImageURI(Uri.parse(result.photoURL))
         }
         binding.buttonRefreshCredentials.setOnClickListener {
             earthoOne.getIdToken(onSuccess = { result ->

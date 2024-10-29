@@ -5,10 +5,15 @@ import com.eartho.one.result.Credentials
 import com.eartho.one.result.User
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.google.gson.JsonDeserializationContext
+import com.google.gson.JsonDeserializer
+import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
+import java.lang.reflect.Type
 import java.security.PublicKey
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 internal object GsonProvider {
     internal val gson: Gson
@@ -16,6 +21,13 @@ internal object GsonProvider {
     private const val DATE_FORMAT = "yyyy-MM-DD HH:mm:ss.S"
 
     init {
+
+        val dateDeserializer =
+            JsonDeserializer { json: JsonElement?, type: Type?, context: JsonDeserializationContext? ->
+                if (json == null) null else Date(
+                    json.asLong
+                )
+            }
         val jwksType = TypeToken.getParameterized(
             Map::class.java,
             String::class.java,
@@ -28,7 +40,7 @@ internal object GsonProvider {
             )
             .registerTypeAdapter(Credentials::class.java, CredentialsDeserializer())
             .registerTypeAdapter(jwksType, JwksDeserializer())
-            .setDateFormat(DATE_FORMAT)
+            .registerTypeAdapter(Date::class.java, dateDeserializer)
             .create()
         sdf = SimpleDateFormat(DATE_FORMAT, Locale.US)
     }
@@ -39,3 +51,4 @@ internal object GsonProvider {
         return sdf.format(date)
     }
 }
+

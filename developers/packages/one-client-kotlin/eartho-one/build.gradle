@@ -1,25 +1,30 @@
-
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
-    id "org.jetbrains.dokka" version "1.4.20"
 }
 
 logger.lifecycle("Using version ${version} for ${name}")
 
 android {
-    compileSdkVersion 31
+    compileSdk 34
+    namespace "com.eartho.one"
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 31
+        targetSdk 34
 
         buildConfigField "String", "LIBRARY_NAME", "\"$project.rootProject.name\""
         buildConfigField "String", "VERSION_NAME", "\"${project.version}\""
 
-        consumerProguardFiles '../proguard/proguard-gson.pro', '../proguard/proguard-okio.pro', '../proguard/proguard-eartho.pro'
+        consumerProguardFiles '../proguard/proguard-gson.pro', '../proguard/proguard-okio.pro', '../proguard/proguard-jetpack.pro'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    buildFeatures {
+        buildConfig = true
+    }
+
+
     testOptions {
         unitTests {
             all {
@@ -28,14 +33,18 @@ android {
             includeAndroidResources = true
         }
     }
+
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = '11'
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    kotlinOptions {
+        jvmTarget = '1.8'
+        freeCompilerArgs += [
+                '-Xexplicit-api=strict', // or '-Xexplicit-api=warning'
+        ]
+    }
     lint {
         abortOnError true
         htmlReport true
@@ -43,37 +52,52 @@ android {
 }
 
 ext {
-    okhttpVersion = '4.9.3'
+    okhttpVersion = '4.12.0'
     powermockVersion = '2.0.9'
+    coroutinesVersion = '1.6.2'
+    biometricLibraryVersion = '1.1.0'
+    credentialManagerVersion = "1.3.0"
 }
+
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.8.0'
-    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'androidx.core:core-ktx:1.6.0'
+    implementation 'androidx.appcompat:appcompat:1.6.0'
     implementation 'androidx.browser:browser:1.4.0'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
     implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
+
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
     implementation 'com.google.code.gson:gson:2.8.9'
+    implementation 'com.google.androidbrowserhelper:androidbrowserhelper:2.4.0'
+
+    implementation "androidx.biometric:biometric:$biometricLibraryVersion"
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.hamcrest:java-hamcrest:2.0.0.0'
     testImplementation "org.powermock:powermock-module-junit4:$powermockVersion"
     testImplementation "org.powermock:powermock-module-junit4-rule:$powermockVersion"
     testImplementation "org.powermock:powermock-api-mockito2:$powermockVersion"
-    testImplementation 'org.mockito:mockito-core:3.7.7'
+    testImplementation 'org.mockito:mockito-core:3.12.4'
     // Mockito-Kotlin: See https://github.com/nhaarman/mockito-kotlin/wiki/Parameter-specified-as-non-null-is-null
     testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
     testImplementation "com.squareup.okhttp3:mockwebserver:$okhttpVersion"
     testImplementation "com.squareup.okhttp3:okhttp-tls:$okhttpVersion"
     testImplementation 'com.jayway.awaitility:awaitility:1.7.0'
-    testImplementation 'org.robolectric:robolectric:4.6.1'
-    testImplementation 'androidx.test.espresso:espresso-intents:3.4.0'
+    testImplementation 'org.robolectric:robolectric:4.8.1'
+    testImplementation 'androidx.test.espresso:espresso-intents:3.5.1'
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
+
+    testImplementation "androidx.biometric:biometric:$biometricLibraryVersion"
+
+    implementation "androidx.credentials:credentials-play-services-auth:$credentialManagerVersion"
+    implementation "androidx.credentials:credentials:$credentialManagerVersion"
 }
 
 ext {
     PUBLISH_GROUP_ID = 'io.github.eartho-group'
-    PUBLISH_VERSION = '1.0.14'
+    PUBLISH_VERSION = '1.1.0'
     PUBLISH_ARTIFACT_ID = 'one'
     PUBLISH_DESCRIPTION = 'Eartho One Android SDK'
     PUBLISH_URL = 'https://github.com/eartho-group/eartho-packages'
