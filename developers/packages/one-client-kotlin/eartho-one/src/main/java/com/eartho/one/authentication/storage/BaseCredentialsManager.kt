@@ -110,5 +110,5 @@ public abstract class BaseCredentialsManager internal constructor(
     }
 
 
-    abstract fun getOfflineIdToken(): String?
+    public abstract fun getOfflineIdToken(): String?
 }

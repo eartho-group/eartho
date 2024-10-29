@@ -1,6 +1,7 @@
 package com.eartho.one
 
 import android.content.Context
+import android.util.Log
 import com.eartho.one.authentication.AuthenticationAPIClient
 import com.eartho.one.authentication.AuthenticationException
 import com.eartho.one.authentication.storage.CredentialsManager
@@ -12,9 +13,9 @@ import com.eartho.one.request.internal.GsonProvider
 import com.eartho.one.result.Credentials
 import com.eartho.one.result.User
 
-const val DEFAULT_MIN_TTL = 60 * 30;
+public const val DEFAULT_MIN_TTL: Int = 60 * 30;
 
-class EarthoOne(
+public class EarthoOne(
     private val context: Context,
     private val config: EarthoOneConfig
 ) {
@@ -31,7 +32,7 @@ class EarthoOne(
      * @param minTt the minimum time in seconds that the access token should last before expiration.
      * @param forceRefresh
      */
-    fun init(forceRefresh: Boolean = false, minTtl: Int = DEFAULT_MIN_TTL) {
+    public fun init(forceRefresh: Boolean = false, minTtl: Int = DEFAULT_MIN_TTL) {
         getIdToken(forceRefresh = forceRefresh, minTtl = minTtl)
     }
 
@@ -41,14 +42,14 @@ class EarthoOne(
      * device does not support the necessary algorithms to support Proof of Key Exchange (PKCE)
      * (this is not expected), or if the user closed the browser before completing the authentication.
      *
-     * @param accessId The access point id the user is going to connect to. https://creator.eartho.world
+     * @param accessId The access point id the user is going to connect to. https://creator.eartho.io
      * @param onSuccess to receive the parsed results
      * @param onFailure to receive the parsed errors
      * @see AuthenticationException.isBrowserAppNotAvailable
      * @see AuthenticationException.isPKCENotAvailable
      * @see AuthenticationException.isAuthenticationCanceled
      */
-    fun connectWithRedirect(
+    public fun connectWithRedirect(
         accessId: String,
         onSuccess: ((Credentials) -> Unit)? = null,
         onFailure: ((AuthenticationException) -> Unit)? = null
@@ -71,7 +72,7 @@ class EarthoOne(
     /**
      * Retrieves the user from the storage without refresh
      **/
-    fun getUser(): User? {
+    public fun getUser(): User? {
         val finalIdToken = manager.getOfflineIdToken() ?: return null;
         val decodedIdToken = manager.jwtDecoder.decode(finalIdToken);
         val a = GsonProvider.gson.toJson(decodedIdToken.decodedPayload["user"]);
@@ -82,7 +83,7 @@ class EarthoOne(
     /**
      * Retrieves the offline credentials from the storage without refresh
      **/
-    fun getIdToken(): String? {
+    public fun getIdToken(): String? {
         return manager.getOfflineIdToken();
     }
 
@@ -95,7 +96,7 @@ class EarthoOne(
      * @param forceRefresh
      * @param callback the callback that will receive a valid [Credentials] or the [CredentialsManagerException].
      */
-    fun getIdToken(
+    public fun getIdToken(
         onSuccess: ((Credentials) -> Unit)? = null,
         onFailure: ((CredentialsManagerException) -> Unit)? = null,
         forceRefresh: Boolean = false,
@@ -123,14 +124,14 @@ class EarthoOne(
      * Checks if a non-expired pair of credentials can be obtained from this manager.
      * @return whether there are valid credentials stored on this manager.
      */
-    fun isConnected(): Boolean {
+    public fun isConnected(): Boolean {
         return manager.hasValidCredentials();
     }
 
     /**
      * Removes the credentials from the storage if present.
      */
-    fun logout(
+    public fun logout(
         onSuccess: (() -> Unit)? = null,
         onFailure: ((AuthenticationException) -> Unit)? = null
     ) {

@@ -168,6 +168,7 @@ public class AuthenticationAPIClient @VisibleForTesting(otherwise = VisibleForTe
             .setGrantType(ParameterBuilder.GRANT_TYPE_AUTHORIZATION_CODE)
             .set(OAUTH_CODE_KEY, authorizationCode)
             .set(REDIRECT_URI_KEY, redirectUri)
+            .set(VERSION, "v2")
             .set(ACCESS_ID, accessId)
             .set("code_verifier", codeVerifier)
             .asDictionary()
@@ -189,6 +190,7 @@ public class AuthenticationAPIClient @VisibleForTesting(otherwise = VisibleForTe
         private const val REDIRECT_URI_KEY = "redirect_uri"
         private const val TOKEN_KEY = "token"
         private const val ACCESS_ID = "access_id"
+        private const val VERSION = "version"
 
         private const val ACCESS_PATH = "access"
         private const val OAUTH_PATH = "oauth"

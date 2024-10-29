@@ -39,3 +39,4 @@ firebase-debug.log
 firebase-debug.*.log
 
 *firebase-adminsdk*.json
+*.gpg

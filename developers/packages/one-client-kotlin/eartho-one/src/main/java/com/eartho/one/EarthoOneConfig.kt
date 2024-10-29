@@ -23,13 +23,13 @@ public open class EarthoOneConfig @JvmOverloads constructor(
     /**
      * @return your Eartho application client identifier
      */
-    val clientId: String,
-    val clientSecret: String,
-    val enabledProviders: Array<String>? = null // Use EarthoAuthProvider
+    public val clientId: String,
+    public val clientSecret: String,
+    public val enabledProviders: Array<String>? = null // Use EarthoAuthProvider
 ) {
     private val domainUrl: HttpUrl?
 
-    private val domain: String = "https://one.eartho.world/"
+    private val domain: String = "https://one.eartho.io"
 
     /**
      * @return Eartho user agent information sent in every request
@@ -49,7 +49,7 @@ public open class EarthoOneConfig @JvmOverloads constructor(
     }
 
     public fun getAuthUrl(): String {
-        return "https://api.eartho.world"
+        return "https://api.eartho.io"
     }
 
     /**
@@ -92,22 +92,22 @@ public open class EarthoOneConfig @JvmOverloads constructor(
     }
 }
 
-class EarthoAuthProvider {
-    companion object{
-        const val facebook = "facebook";
-        const val google = "google";
-        const val twitter = "twitter";
+public class EarthoAuthProvider {
+    public companion object {
+        public const val facebook: String = "facebook";
+        public const val google: String = "google";
+        public const val twitter: String = "twitter";
 
-        const val apple = "apple";
-        const val github = "github";
-        const val microsoft = "microsoft";
+        public const val apple: String = "apple";
+        public const val github: String = "github";
+        public const val microsoft: String = "microsoft";
 
-        const val vk = "vk";
-        const val phone = "phone";
-        const val metamask = "metamask";
+        public const val vk: String = "vk";
+        public const val phone: String = "phone";
+        public const val metamask: String = "metamask";
 
-        const val reddit = "reddit";
-        const val snapchat = "snapchat";
-        const val yandex = "yandex";
+        public const val reddit: String = "reddit";
+        public const val snapchat: String = "snapchat";
+        public const val yandex: String = "yandex";
     }
 }
