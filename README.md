@@ -222,19 +222,19 @@ By wrapping major sign-in services, Eartho provides the best of both worlds: the
   <tr>
     <td align="center"><b>Access page</b></td>
     <td align="center">
-      <img src="https://github.com/earthodev/media/blob/main/mobile/illustrations/home.png" alt="Auth0 Logo" width="200" />
+      <img src="https://github.com/earthodev/media/blob/main/mobile/illustrations/home.png" alt="" width="200" />
     </td>
   </tr>
   <tr>
     <td align="center"><b>Profile Page</b></td>
     <td align="center">
-      <img src="https://github.com/earthodev/media/blob/main/mobile/illustrations/settings" alt="Clerk Logo" width="200" />
+      <img src="https://github.com/earthodev/media/blob/main/mobile/illustrations/settings.png" alt="" width="200" />
     </td>
   </tr>
   <tr>
     <td align="center"><b>Authenticator</b></td>
     <td align="center">
-      <img src="" alt="Clerk Logo" width="200" />
+      <img src="" alt="" width="200" />
     </td>
   </tr>
 </table>
