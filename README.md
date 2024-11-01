@@ -139,7 +139,7 @@ By wrapping major sign-in services, Eartho provides the best of both worlds: the
 
 <br />
 
-## Features
+## Web App - Features
 
 <table>
   <tr>
@@ -212,7 +212,7 @@ By wrapping major sign-in services, Eartho provides the best of both worlds: the
   </tr>
 </table>
 
-## Features Mobile App (Soon)
+## Mobile App - Features (Soon)
 
 <table align="center" border="1" cellpadding="10"> <tr> <td align="center"><b>Access Page</b></td> <td align="center"><b>Profile Page</b></td> <td align="center"><b>Authenticator</b></td> </tr> <tr> <td align="center"> <img src="https://github.com/earthodev/media/blob/main/mobile/illustrations/home.png" alt="" width="200" /> </td> <td align="center"> <img src="https://github.com/earthodev/media/blob/main/mobile/illustrations/settings.png" alt="" width="200" /> </td> <td align="center"> <img src="" alt="" width="200" /> </td> </tr> </table>
 
