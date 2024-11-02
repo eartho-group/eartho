@@ -169,6 +169,23 @@ By wrapping major sign-in services, Eartho provides the best of both worlds: the
     </td>
   </tr>
   <tr>
+    <td><b>Privacy-Based Access Levels</b></td>
+    <td>Allow users to create multiple access levels within their accounts, choosing exactly what each app or platform can access. For instance, users could grant “basic,” “enhanced,” or “restricted” access, tailoring permissions on a granular level.
+
+</td>
+    <td align="center">
+      <img src="https://github.com/eartho-group/media/blob/main/readme/feature_10.png" alt="" width="250">
+    </td>
+  </tr>
+  <tr>
+    <td><b>Digital Identity Vault for Sensitive Information</b></td>
+    <td>Create a secure digital vault where users can store sensitive identity documents (e.g., ID scans, certificates) and share them selectively with apps that require identity verification.
+    </td>
+    <td align="center">
+      <img src="https://github.com/eartho-group/media/blob/main/readme/feature_10.png" alt="" width="250">
+    </td>
+  </tr>
+  <tr>
     <td><b>Security Checkups</b></td>
     <td>Regularly check your account security and protect yourself from threats across all your linked accounts.</td>
     <td align="center">
