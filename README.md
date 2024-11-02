@@ -28,21 +28,32 @@
 <table align="center" border="1" cellpadding="10">
   <tr>
     <th align="center">Name</th>
-    <th align="center">Image</th>
+    <td align="center"><b>Auth0</b></td>
+    <td align="center"><b>Clerk</b></td>
+    <td align="center"><b>Stack-Auth</b></td>
+    <td align="center"><b>Supabase</b></td>
+    <td align="center"><b>Firebase</b></td>
   </tr>
   <tr>
-    <td align="center"><b>Auth0</b></td>
+    <th align="center">Image</th>
     <td align="center">
       <img src="https://github.com/eartho-group/media/blob/main/example_auth0.png" alt="Auth0 Logo" width="200" />
     </td>
-  </tr>
-  <tr>
-    <td align="center"><b>Clerk</b></td>
     <td align="center">
       <img src="https://github.com/eartho-group/media/blob/main/example_clerk_1.png" alt="Clerk Logo" width="200" />
     </td>
+    <td align="center">
+      <img src="https://github.com/earthodev/media/blob/main/example_stack.png" alt="Stack Logo" width="200" />
+    </td>
+    <td align="center">
+      <img src="https://github.com/earthodev/media/blob/main/example_supabase_firebase.png" alt="Supabase Logo" width="200" />
+    </td>
+    <td align="center">
+      <img src="https://github.com/earthodev/media/blob/main/example_supabase_firebase.png" alt="Firenase Logo" width="200" />
+    </td>
   </tr>
 </table>
+
 
 <br />
 
