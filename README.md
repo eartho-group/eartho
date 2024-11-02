@@ -30,10 +30,8 @@
     <th align="center">Name</th>
     <td align="center"><b>Auth0</b></td>
     <td align="center"><b>Clerk</b></td>
-    <td align="center"><b>Stack-Auth</b></td>
-    <td align="center"><b>Supabase</b></td>
-    <td align="center"><b>Firebase</b></td>
-  </tr>
+      <td align="center"><b>Stack-Auth</b></td>
+</tr>
   <tr>
     <th align="center">Image</th>
     <td align="center">
@@ -45,6 +43,14 @@
     <td align="center">
       <img src="https://github.com/earthodev/media/blob/main/example_stack.png" alt="Stack Logo" width="200" />
     </td>
+  </tr>
+  <tr>
+    <th align="center">Name</th>
+    <td align="center"><b>Supabase</b></td>
+    <td align="center"><b>Firebase</b></td>
+  </tr>
+  <tr>
+    <th align="center">Image</th>
     <td align="center">
       <img src="https://github.com/earthodev/media/blob/main/example_supabase_firebase.png" alt="Supabase Logo" width="200" />
     </td>
