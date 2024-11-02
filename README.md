@@ -162,6 +162,13 @@ By wrapping major sign-in services, Eartho provides the best of both worlds: the
     </td>
   </tr>
   <tr>
+    <td><b>Manage Multiple Spaces Of Services</b></td>
+    <td>Build a space for access to your work, build a space for access to your personal life, and build a space for your hidden services and protect them with an extra password</td>
+    <td align="center">
+      <img src="https://github.com/eartho-group/media/blob/main/readme/feature_10.png" alt="Multi-Space" width="250">
+    </td>
+  </tr>
+  <tr>
     <td><b>Security Checkups</b></td>
     <td>Regularly check your account security and protect yourself from threats across all your linked accounts.</td>
     <td align="center">
