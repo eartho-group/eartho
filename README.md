@@ -359,13 +359,20 @@ Eartho supports a wide range of authentication methods, allowing users to log in
 - **Reddit**: Login via Reddit for users active on the platform.
 - **Yandex**: A secure login option through Yandex.
 - **MetaMask**: For crypto enthusiasts, log in using your MetaMask wallet.
-
-### **How It Works**:
-Eartho wraps these providers, acting as a privacy layer, which means your login process goes through Eartho. This ensures that while the authentication provider can verify your credentials, they don't gain access to your app activity or personal information—keeping your data safe and secure.
-
 <div align="center">
 <a href="https://eartho.io">
     <img src="https://github.com/eartho-group/media/blob/main/authentication_methods.png" height="264" width="264" alt="Logo">
+  </a>
+</div>
+<br />
+
+<h2>How It Works:</h2>
+Eartho wraps these providers, acting as a privacy layer, which means your login process goes through Eartho. This ensures that while the authentication provider can verify your credentials, they don't gain access to your app activity or personal information—keeping your data safe and secure.
+
+<br /> <br />
+<div align="center">
+<a href="https://eartho.io">
+    <img src="https://github.com/earthodev/media/blob/main/illustration_eartho_infrastrucre.png" height="500" alt="Logo">
   </a>
 </div>
 
