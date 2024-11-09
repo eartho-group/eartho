@@ -40,3 +40,4 @@ firebase-debug.*.log
 
 *firebase-adminsdk*.json
 *.gpg
+.next
