@@ -370,6 +370,31 @@ Eartho supports a wide range of authentication methods, allowing users to log in
 <h2>How It Works:</h2>
 Eartho wraps these providers, acting as a privacy layer, which means your login process goes through Eartho. This ensures that while the authentication provider can verify your credentials, they don't gain access to your app activity or personal information—keeping your data safe and secure.
 
+<h3>Eartho Architecture</h3>
+
+<p>Eartho's system is organized into three main services, each with a unique purpose:</p>
+
+<h4>1. Account Service</h4>
+<ul>
+  <li>Users log in through existing accounts (Google, Facebook, etc.) using <strong>OAuth2</strong>.</li>
+  <li>Eartho then acts as an <strong>OIDC provider</strong>, offering a unified, privacy-focused login across supported apps without sharing data back to these providers.</li>
+</ul>
+
+<h4>2. MyAccount Service</h4>
+<ul>
+  <li>Allows users to manage their data, privacy settings, and linked accounts.</li>
+  <li>Users have control over data storage, can view login history, and adjust privacy preferences.</li>
+</ul>
+
+<h4>3. Developer Service</h4>
+<ul>
+  <li>For developers to register their apps and integrate Eartho as a login option.</li>
+  <li>Provides all setup details for easy app integration.</li>
+</ul>
+
+<p>This structure keeps each service focused: <strong>Account Service</strong> for user login, <strong>MyAccount Service</strong> for data control, and <strong>Developer Service</strong> for app integration.</p>
+
+
 <br /> <br />
 <div align="center">
 <a href="https://eartho.io">
