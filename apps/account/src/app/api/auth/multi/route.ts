@@ -1,6 +1,6 @@
 // Adjust the import path based on your Firestore setup
 import { auth } from '@/auth';
-import { authAccountsCollection, fdb } from '@/lib/googlecloud/fdb'; // Update this based on your actual Firestore setup
+import { authAccountsCollection, fdb } from '@/lib/googlecloud/db'; // Update this based on your actual Firestore setup
 import { NextResponse } from 'next/server';
 
 export async function GET(req: any) {

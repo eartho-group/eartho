@@ -5,7 +5,6 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import ApprovalComponent from "./approval";
 import AuthLayout, { EntityData, fetchEntityData } from "../side-component";
-import { signOut } from "next-auth/react";
 import { useTranslations } from 'next-intl';
 
 

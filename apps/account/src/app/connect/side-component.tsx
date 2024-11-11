@@ -55,53 +55,6 @@ interface AuthLayoutProps {
 
 export default function AuthLayout({ children, entityData }: AuthLayoutProps) {
   const t = useTranslations('connect'); // Use the useTranslations hook
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
-  // Define the path where you want to enforce consent checks
-  const isConsentPath = pathname?.includes('/consent');
-
-  const interactionId = searchParams?.get('interaction'); // Adjust to actual query param name if needed
-
-  // Get session data from next-auth
-  const { data: session } = useSession();
-
-  // Trigger login action once session is available
-  useEffect(() => {
-    if (session?.user) {
-      handleLogin();
-    }
-  }, [session]);
-
-  const handleLogin = async () => {
-    const accountId = session?.user.id;
-    if (!accountId) return;
-
-    try {
-      // Complete the interaction via the API
-      const response = await fetch(`/api/oidc/interaction/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ accountId, interactionId }), // Pass interactionId if needed
-      });
-
-      if (!response.ok) {
-        throw new Error(`Failed to complete interaction: ${response.statusText}`);
-      }
-
-      // Get the redirect URI from the JSON response
-      const { redirectUri } = await response.json();
-      if (redirectUri) {
-        router.push(redirectUri);
-      } else {
-        console.warn('No redirect URI provided by interaction response');
-      }
-    } catch (error) {
-      console.error('Failed to complete login interaction', error);
-      // Optionally handle errors, e.g., by redirecting to an error page
-    }
-  };
 
   return (
     <div className="md:grid md:grid-cols-2 md:px-0 h-screen overflow-y-auto">

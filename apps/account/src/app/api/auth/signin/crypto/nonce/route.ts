@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'crypto';
-import { authVerificationCollection, fdb } from '@/lib/googlecloud/fdb'; // Adjust based on your Firestore setup
+import { authVerificationCollection, fdb } from '@/lib/googlecloud/db'; // Adjust based on your Firestore setup
 import admin from 'firebase-admin';
 
 export async function POST(req: NextRequest) {

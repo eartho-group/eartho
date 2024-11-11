@@ -90,30 +90,15 @@ const ApprovalComponent: FC<ApprovalComponentProps> = ({ }) => {
         try {
             if (!searchParams) return
 
-            const nonce = searchParams.get("nonce");
-            const state = searchParams.get("state");
-            const responseMode = searchParams.get("response_mode") || '';
-            const redirectUri = searchParams.get("redirect_uri");
-            const accountId = session?.user.id;
-            const interactionId = searchParams?.get('interaction') || ''; // Adjust to actual query param name if needed
-            const scope = searchParams.getAll("scope");
+            const interactionId = searchParams?.get('interaction') || ''; 
 
-            if (!clientId) {
-                console.log("Missing clientId");
-                return;
-            }
-            if (!redirectUri) {
-                console.log("Missing redirectUri");
-                return;
-            }
-
-            const data = await accessService.connect(accessId ?? clientId, currentPaymentMethod?.value)
+            const data = await accessService.connect(clientId, currentPaymentMethod?.value)
             if (data.status === 'connected') {
                 // Complete the interaction via the API
-                const response = await fetch(`/api/oidc/interaction/consent`, {
+                const response = await fetch(`/api/oidc/interaction/${interactionId}/confirm`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ accountId, interactionId, clientId, scope }), // Pass interactionId if needed
+                    body: JSON.stringify({ interactionId }), // Pass interactionId if needed
                 });
 
                 if (!response.ok) {

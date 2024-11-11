@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/extension/utils";
 import { Icons } from "@/components/icons";
 import apiService from "@/service/api.service";
 import Image from "next/image";

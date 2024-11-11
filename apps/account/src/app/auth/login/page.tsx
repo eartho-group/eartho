@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import UserAuthForm from "@/components/forms/user-auth-form";
 import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/extension/utils";
 import AuthLayout from "../side-component";
 import { useTranslations } from 'next-intl';
 

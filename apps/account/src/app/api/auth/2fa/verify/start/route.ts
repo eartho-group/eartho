@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { authUsersCollection, authVerificationCollection, fdb } from '@/lib/googlecloud/fdb';
+import { authUsersCollection, authVerificationCollection, fdb } from '@/lib/googlecloud/db';
 import { auth } from '@/auth';
 import Twilio from 'twilio';
 import crypto from 'crypto';

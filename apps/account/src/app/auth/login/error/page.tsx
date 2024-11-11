@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { handleAuthError } from '@/lib/auth/util';
+import { handleAuthError } from '@/lib/internal-auth/util';
 
 const ErrorPage = () => {
   const router = useRouter();

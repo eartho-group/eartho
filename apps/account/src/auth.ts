@@ -8,13 +8,13 @@ import YandexProvider from 'next-auth/providers/yandex';
 import VKontakteProvider from 'next-auth/providers/vk';
 import AppleProvider from 'next-auth/providers/apple';
 import MicrosoftProvider from 'next-auth/providers/microsoft-entra-id';
-import { fdb } from './lib/googlecloud/fdb';
-import { FirestoreAdapter } from './lib/auth/firestore/adapter';
+import { fdb } from './lib/googlecloud/db';
+import { FirestoreAdapter } from './lib/internal-auth/googledb-adapter/adapter';
 import { redirect } from 'next/navigation';
-import { getEarthoToken } from './lib/auth/earthotoken/earthotoken';
-import CryptoProvider from './lib/auth/crypto/provider';
-import EmailOtpProvider from './lib/auth/email/mailgun-otp';
-import PhoneOtpProvider from './lib/auth/phone/phone-otp';
+import { getEarthoToken } from './lib/internal-auth/earthotoken/earthotoken';
+import CryptoProvider from './lib/internal-auth/providers/crypto/provider';
+import EmailOtpProvider from './lib/internal-auth/providers/email/mailgun-otp';
+import PhoneOtpProvider from './lib/internal-auth/providers/phone/phone-otp';
 
 export const homePage = '/';
 export const loginPage = '/auth/signin';
@@ -36,13 +36,16 @@ const authOptions: NextAuthConfig = {
   },
   callbacks: {
     async jwt({ token, user, account }) {
+
       // Initial sign in
       if (account && user) {
-        token.accessToken = await getEarthoToken(user, account, TIME_TO_LIVE_SEC);
+        const { id, uid, email, emailVerified, firstName, lastName, displayName, photoURL, verifiedEmails, accounts } = user as User;
+        const newUser = { id, uid, email, emailVerified, firstName, lastName, displayName, photoURL, verifiedEmails, accounts } as User;
+
+        token.accessToken = await getEarthoToken(newUser , account, TIME_TO_LIVE_SEC);
         token.accessTokenExpires = Date.now() + TIME_TO_LIVE_SEC * 1000;
         token.refreshToken = account.refresh_token;
-        const { id, uid, email, emailVerified, firstName, lastName, displayName, photoURL, verifiedEmails, accounts } = user as User;
-        token.user = { id, uid, email, emailVerified, firstName, lastName, displayName, photoURL, verifiedEmails, accounts };
+        token.user = newUser;
       }
 
       // Return previous token if the access token has not expired yet
@@ -153,3 +156,4 @@ interface User {
   verifiedEmails?: string[] | null;
   accounts?: Map<string, any> | null;
 }
+

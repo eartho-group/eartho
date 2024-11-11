@@ -1,5 +1,5 @@
 import CredentialsProvider from "next-auth/providers/credentials";
-import { authAccountsCollection, authVerificationCollection, fdb, usersCollection } from "@/lib/googlecloud/fdb";
+import { authAccountsCollection, authVerificationCollection, fdb, usersCollection } from "@/lib/googlecloud/db";
 import { verifyMessage } from "ethers";
 import { FieldValue, Timestamp } from "firebase-admin/firestore";
 import { User } from "next-auth";

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { CaretSortIcon, CheckIcon, PlusCircledIcon } from "@radix-ui/react-icons";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/extension/utils";
 import { Button } from "@/components/ui/button";
 import {
   Command,

@@ -27,7 +27,7 @@ import type {
   VerificationToken,
 } from "@auth/core/adapters"
 import { AdapterUser, adaptUser } from "./user"
-import { authAccountsCollection, authSessionsCollection, authVerificationCollection, usersCollection } from "@/lib/firestore"
+import { authAccountsCollection, authSessionsCollection, authVerificationCollection, usersCollection } from "@/lib/googlecloud/db"
 
 /** Configure the Firebase Adapter. */
 export interface FirebaseAdapterConfig extends AppOptions {

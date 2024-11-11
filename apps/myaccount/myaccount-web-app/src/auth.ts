@@ -1,38 +1,40 @@
 import NextAuth, { Account, JWT, NextAuthConfig, Session } from 'next-auth';
-import GoogleProvider from 'next-auth/providers/google';
 
-import { firestore } from './lib/firestore';
-import { FirestoreAdapter } from './lib/auth/firestore/adapter';
 import { redirect } from 'next/navigation';
-import { getEarthoToken } from './lib/auth/earthotoken/earthotoken';
+import { getEarthoToken } from './lib/auth/earthotoken';
+import Apple from "next-auth/providers/apple"
+import Discord from "next-auth/providers/discord"
 
-export const homePage = '/';
-export const loginPage = '/auth/login';
 const TIME_TO_LIVE_SEC = 30 * 24 * 60 * 60; // 30 DAYS
 
-export const firestoreAdapter = FirestoreAdapter(firestore);
-
+export const loginPage = '/auth';
+export const homePage = '/';
 
 const authOptions: NextAuthConfig = {
   pages: {
     signIn: loginPage,
-    error: '/auth/login/error',
+    error: '/auth/error',
   },
+  debug: true,
   secret: process.env.AUTH_SECRET,
-  adapter: firestoreAdapter,
   session: {
     strategy: 'jwt',
     maxAge: TIME_TO_LIVE_SEC, // 30 days
   },
   callbacks: {
+
     async jwt({ token, user, account }) {
+      console.log(token);
+
       // Initial sign in
       if (account && user) {
-        token.accessToken = await getEarthoToken(user, account, TIME_TO_LIVE_SEC);
+        const { id, uid, email, emailVerified, firstName, lastName, displayName, photoURL, verifiedEmails } = user as User;
+        const newUser = { id, uid, email, emailVerified, firstName, lastName, displayName, photoURL, verifiedEmails } as User;
+
+        token.accessToken = await getEarthoToken(newUser , account, TIME_TO_LIVE_SEC);
         token.accessTokenExpires = Date.now() + TIME_TO_LIVE_SEC * 1000;
         token.refreshToken = account.refresh_token;
-        const { id, uid, email, emailVerified, firstName, lastName, displayName, photoURL, verifiedEmails, accounts } = user as User;
-        token.user = { id, uid, email, emailVerified, firstName, lastName, displayName, photoURL, verifiedEmails, accounts };
+        token.user = newUser;
       }
 
       // Return previous token if the access token has not expired yet
@@ -52,11 +54,54 @@ const authOptions: NextAuthConfig = {
       return session;
     },
   },
+
+  logger: {
+    error(code, ...message) {
+      console.error(code, message)
+    },
+    warn(code, ...message) {
+      console.warn(code, message)
+    },
+    debug(code, ...message) {
+      console.debug(code, message)
+    },
+  },
+
   providers: [
-    GoogleProvider({
-      clientId: process.env.AUTH_GOOGLE_ID!,
-      clientSecret: process.env.AUTH_GOOGLE_SECRET!,
-    }),
+    {
+      
+      id: "eartho",
+      name: "Eartho",
+      type: "oidc",
+
+      issuer: "https://account.eartho.io",
+      clientId: process.env.EARTHO_ACCOUNT_CLIENT_ID,
+      clientSecret: process.env.EARTHO_ACCOUNT_CLIENT_SECRET,
+
+      authorization: {
+        url: "https://account.eartho.io/api/oidc/auth",
+        params: {
+          scope: "openid email profile",
+        },
+      },
+      token: "https://account.eartho.io/api/oidc/token",
+      userinfo: "https://account.eartho.io/api/oidc/userinfo",
+
+      // idToken: true,
+      idToken: true,
+      checks: ["pkce"],
+      client: { token_endpoint_auth_method: "client_secret_post" },
+
+
+      profile(profile) {
+        return {
+          id: profile.sub,
+          name: profile.name,
+          email: profile.email,
+          image: profile.picture,
+        }
+      },
+    }
   ],
 };
 

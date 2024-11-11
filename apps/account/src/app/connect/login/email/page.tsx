@@ -1,21 +1,26 @@
 'use client';
 
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import AuthLayout, { EntityData, fetchEntityData } from "../../side-component";
 import UserEmailAuthForm from "@/components/forms/user-email-auth-form";
 import { useTranslations } from 'next-intl';
+import { useSession } from "next-auth/react";
 
 export default function Page() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  
+
   const [entityData, setEntityData] = useState<EntityData | null>(null);
   const t = useTranslations('auth'); // Use the useTranslations hook
 
   const clientId = searchParams?.get('client_id');
   const accessId = searchParams?.get('access_id');
+  const interactionId = searchParams?.get('interaction'); // Adjust to actual query param name if needed
+
+  // Get session data from next-auth
+  const { data: session } = useSession();
 
   useEffect(() => {
 
@@ -31,6 +36,43 @@ export default function Page() {
 
     fetchData();
   }, []);
+
+
+  // Trigger login action once session is available
+  useEffect(() => {
+    if (session?.user) {
+      handleLogin();
+    }
+  }, [session?.accessToken]);
+
+  const handleLogin = async () => {
+    const accountId = session?.user.id;
+    if (!accountId) return;
+
+    try {
+      // Complete the interaction via the API
+      const response = await fetch(`/api/oidc/interaction/${interactionId}/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ accountId, interactionId }), // Pass interactionId if needed
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to complete interaction: ${response.statusText}`);
+      }
+
+      // Get the redirect URI from the JSON response
+      const { redirectUri } = await response.json();
+      if (redirectUri) {
+        router.push(redirectUri);
+      } else {
+        console.warn('No redirect URI provided by interaction response');
+      }
+    } catch (error) {
+      console.error('Failed to complete login interaction', error);
+      // Optionally handle errors, e.g., by redirecting to an error page
+    }
+  };
 
 
   return (

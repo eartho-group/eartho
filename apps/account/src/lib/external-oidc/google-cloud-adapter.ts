@@ -1,6 +1,6 @@
 // lib/firebaseAdapter.ts
 import { Adapter, AdapterPayload } from 'oidc-provider';
-import { fdb, rdb } from '../googlecloud/fdb';
+import { fdb, rdb } from '../googlecloud/db';
 
 export default class GoogleCloudAdapter implements Adapter {
   private name: string;

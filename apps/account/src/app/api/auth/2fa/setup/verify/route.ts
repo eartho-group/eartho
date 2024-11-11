@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyTOTP } from '../../totp';
-import { authUsersCollection, fdb } from '@/lib/googlecloud/fdb'; // Adjust based on your Firestore setup
+import { authUsersCollection, fdb } from '@/lib/googlecloud/db'; // Adjust based on your Firestore setup
 import { auth } from '@/auth';
 import { DocumentData, FieldValue } from 'firebase-admin/firestore';
 

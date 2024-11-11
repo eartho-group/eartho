@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/extension/utils";
 import { ChevronRightIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import React from "react";

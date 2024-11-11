@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3031",
+    "dev": "next dev -p 3031; DEBUG=oidc-provider:*",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { fdb, usersCollection } from '@/lib/googlecloud/fdb';
+import { fdb, usersCollection } from '@/lib/googlecloud/db';
 import admin from 'firebase-admin';
 import { auth } from '@/auth';
 

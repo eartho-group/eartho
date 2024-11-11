@@ -6,7 +6,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/extension/utils";
 import { CalendarIcon } from "@radix-ui/react-icons";
 import { addDays, format, subDays } from "date-fns";
 import * as React from "react";

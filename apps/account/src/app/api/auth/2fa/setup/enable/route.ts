@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import qrcode from 'qrcode';
 import { generateSecret } from '../../totp';
-import { authUsersCollection, fdb } from '@/lib/googlecloud/fdb'; // Adjust based on your Firestore setup
+import { authUsersCollection, fdb } from '@/lib/googlecloud/db'; // Adjust based on your Firestore setup
 import { auth } from '@/auth';
 import Twilio from 'twilio';
 import crypto from 'crypto';

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { authUsersCollection, authVerificationCollection, fdb } from '@/lib/googlecloud/fdb';
+import { authUsersCollection, authVerificationCollection, fdb } from '@/lib/googlecloud/db';
 import { auth } from '@/auth';
 import { verifyTOTP } from '../totp';
 import { DocumentData, FieldValue } from 'firebase-admin/firestore';

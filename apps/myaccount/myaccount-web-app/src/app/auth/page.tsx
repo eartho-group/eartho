@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
+import { signIn } from "next-auth/react";
 
 export default function Page() {
   const [loading, setLoading] = useState(false);
@@ -15,8 +16,7 @@ export default function Page() {
   const handleLogin = async () => {
     setLoading(true);
     try {
-      
-      router.replace("/");
+      signIn("eartho");
     } catch (error) {
       console.error("Login failed:", error);
       toast({

@@ -4,7 +4,7 @@ import { getDatabase, Database, ServerValue } from 'firebase-admin/database';
 import { Firestore, getFirestore, initializeFirestore, Timestamp, FieldValue } from 'firebase-admin/firestore';
 import * as admin from 'firebase-admin';
 import * as serviceAccount from './eartho-app-firebase-adminsdk-njcdc-0fff8407e9.json';
-import { FirebaseAdapterConfig } from '../auth/firestore/adapter';
+import { FirebaseAdapterConfig } from '../internal-auth/googledb-adapter/adapter';
 
 // Initialize Firebase app with service account credentials
 const appOptions: AppOptions = {

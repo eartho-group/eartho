@@ -34,9 +34,9 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/lib/auth",
+    "src/lib/internal-auth",
     "src/auth.ts",
-    "src/lib/auth/firestore",
+    "src/lib/internal-auth/googledb-adapter",
     "build/types/**/*.ts"
   ],
   "exclude": [

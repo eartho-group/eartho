@@ -5,8 +5,8 @@ export default async function Page() {
     //If logged in go to member.eartho.io
     const session = await auth();
 
-    if (session) {
-        redirect('https://member.eartho.io')
+    if (session?.accessToken) {
+        redirect('https://myaccount.eartho.io')
         return
     }
     

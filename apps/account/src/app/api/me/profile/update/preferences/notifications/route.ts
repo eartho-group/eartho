@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { fdb, usersCollection } from '@/lib/googlecloud/fdb';
+import { fdb, usersCollection } from '@/lib/googlecloud/db';
 import { auth } from '@/auth';
 
 export async function POST(request: NextRequest): Promise<NextResponse> {

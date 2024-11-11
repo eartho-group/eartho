@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { authVerificationCollection, fdb } from '@/lib/googlecloud/fdb';
+import { authVerificationCollection, fdb } from '@/lib/googlecloud/db';
 import crypto from 'crypto';
 
 export async function POST(request: NextRequest): Promise<NextResponse> {

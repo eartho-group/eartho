@@ -9,8 +9,8 @@ export async function getEarthoToken(user: User, account: Account, timeToLiveSec
     // console.log(account)
 
     const payload = {
-        iss: "https://one.eartho.io",
-        aud: "eartho",
+        iss: "https://account.eartho.io",
+        aud: "https://account.eartho.io",
         auth_time: Math.floor(Date.now() / 1000), // Current time
         sub: user.id, // Actual subject
         iat: Math.floor(Date.now() / 1000), // Issued at time

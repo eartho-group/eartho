@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import { createOidcProvider } from "@/lib/oidc";
+import { createOidcProvider } from "@/lib/external-oidc";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 

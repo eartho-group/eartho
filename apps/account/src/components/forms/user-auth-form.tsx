@@ -3,13 +3,13 @@
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { signIn, useSession } from "next-auth/react";
-import { handleMetaMaskLogin } from "@/lib/auth/crypto/service";
-import { Web3Modal } from "@/lib/auth/crypto/web3modal";
+import { handleMetaMaskLogin } from "@/lib/internal-auth/providers/crypto/service";
+import { Web3Modal } from "@/lib/internal-auth/providers/crypto/web3modal";
 import { useWeb3Modal, useWeb3ModalAccount, useWeb3ModalProvider } from "@web3modal/ethers/react";
 import { BrowserProvider, ethers } from "ethers";
 import { Loader2 } from "lucide-react";
 import { Icons } from "@/components/icons";
-import { handleAuthError } from "@/lib/auth/util";
+import { handleAuthError } from "@/lib/internal-auth/util";
 
 interface UserAuthFormProps {
   redirectUri?: string;

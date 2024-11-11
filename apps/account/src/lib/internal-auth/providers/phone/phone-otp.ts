@@ -1,32 +1,30 @@
 import CredentialsProvider from "next-auth/providers/credentials";
-import { authAccountsCollection, authVerificationCollection, fdb, usersCollection } from "@/lib/googlecloud/fdb";
-import { uuidOfString } from "../../extension/uuid";
+import { authAccountsCollection, authVerificationCollection, fdb, usersCollection } from "@/lib/googlecloud/db";
 import { AdapterUser } from "@auth/core/adapters";
 import { FieldValue } from "firebase-admin/firestore";
 
 interface Credentials {
-  email: string;
+  phone: string;
   otp: string;
 }
 
-const EmailOtpProvider = CredentialsProvider({
-  id: "email-otp",
-  name: "Email",
+const PhoneOtpProvider = CredentialsProvider({
+  id: "phone-otp",
+  name: "Phone",
   type: "credentials",
   credentials: {
-    email: { label: "Email", type: "text" },
+    phone: { label: "Phone Number", type: "text" },
     otp: { label: "OTP", type: "text" },
   },
-  authorize: async (credentials, req) => {
-    const { email, otp } = credentials as Credentials;
-
+  authorize: async (credentials) => {
+    const { phone, otp } = credentials as Credentials;
     try {
-      if (!email || !otp) {
-        throw new Error("Email and OTP are required");
+      if (!phone || !otp) {
+        throw new Error("Phone Number and OTP are required");
       }
 
       const otpsCollection = authVerificationCollection(fdb);
-      const otpDoc = await otpsCollection.doc(email).get();
+      const otpDoc = await otpsCollection.doc(phone).get();
 
       if (!otpDoc.exists) {
         throw new Error("OTP not found");
@@ -35,7 +33,7 @@ const EmailOtpProvider = CredentialsProvider({
       const storedOtpData = otpDoc.data() as { otp: string; expires: number };
 
       if (Date.now() > storedOtpData.expires) {
-        await otpsCollection.doc(email).delete();
+        await otpsCollection.doc(phone).delete();
         throw new Error("OTP has expired");
       }
 
@@ -44,15 +42,13 @@ const EmailOtpProvider = CredentialsProvider({
       }
 
       // Delete the OTP document
-      await otpsCollection.doc(email).delete();
-
-      const hashedEmail = uuidOfString(email);
+      await otpsCollection.doc(phone).delete();
 
       const accountsCollection = authAccountsCollection(fdb);
       const userCollection = usersCollection(fdb);
       const accountQuerySnapshot = await accountsCollection
-        .where("provider", "==", "email")
-        .where("providerAccountId", "==", hashedEmail)
+        .where("provider", "==", "phone")
+        .where("providerAccountId", "==", phone)
         .get();
 
       const alreadyHasAccount = accountQuerySnapshot.docs.length > 0;
@@ -62,31 +58,24 @@ const EmailOtpProvider = CredentialsProvider({
         const userId = accountData.userId;
         const userDoc = await userCollection.doc(userId).get();
         const userData = userDoc.data();
-
-        if (userData && !userData.email) {
-          await userCollection.doc(userId).update({
-            email: email,
-            verifiedEmails: [email],
-          });
-        }
         return userData as AdapterUser || null;
       } else {
         const newUserId = userCollection.doc().id;
         const newAccountId = accountsCollection.doc().id;
         const accountData = {
-          provider: "email",
-          providerAccountId: hashedEmail,
-          email: email,
-          userId: newUserId,
+          provider: "phone",
+          providerAccountId: phone,
+          phoneNumber: phone,
           createdAt: FieldValue.serverTimestamp(),
+          userId: newUserId,
         };
         const userData = {
           id: newUserId,
           uid: newUserId,
-          email: email,
+          phoneNumber: phone,
           createdAt: FieldValue.serverTimestamp(),
-          verifiedEmails: [email],
-          accounts: { [newAccountId]: { provider: 'email', providerAccountId: hashedEmail } },
+          verifiedPhoneNumbers: [phone],
+          accounts: { [newAccountId]: { provider: 'phone', providerAccountId: phone } },
         };
         await accountsCollection.doc(newAccountId).set(accountData);
         await userCollection.doc(newUserId).set(userData);
@@ -99,4 +88,4 @@ const EmailOtpProvider = CredentialsProvider({
   },
 });
 
-export default EmailOtpProvider;
+export default PhoneOtpProvider;

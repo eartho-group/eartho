@@ -11,7 +11,7 @@ const ErrorPage = () => {
   useEffect(() => {
     // Get the error from query params
     const error = searchParams.get('error');
-    handleAuthError(error);
+   // handleAuthError(error);
   }, [router, searchParams]);
 
   return null; // Or you can show a loading spinner or a message here
