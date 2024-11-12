@@ -16,7 +16,7 @@ export default function Page() {
   const handleLogin = async () => {
     setLoading(true);
     try {
-      signIn("eartho");
+      signIn("eartho", { redirect: true, redirectTo: "/" });
     } catch (error) {
       console.error("Login failed:", error);
       toast({
