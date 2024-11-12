@@ -459,12 +459,10 @@ Here are the copyrights and the license type:
 
 - MIT License, Copyright (c) 2018 Auth0, Inc. <support@auth0.com> (http://auth0.com)
 - MIT License, Copyright (c) 2020-present Cryptr
-- MIT License, Copyright (c) 2020 Jose
-- MIT License, Copyright (c) 2016 Filip Skokan
-- MIT License, Copyright (c) 2020 Ville de Montréal
 - MIT License, Copyright (c) 2020 Ville de Montréal
 - ISC License, Copyright (c) 2022-2024, Balázs Orbán (Auth.js)
-
+- MIT License, Copyright (c) 2018 Filip Skokan - Jose
+- MIT License,  Copyright (c) 2015 Filip Skokan https://github.com/panva/node-oidc-provider/blob/main/LICENSE.md
 
 <h2>Frequently Asked Questions (FAQ)</h2>
 
@@ -479,14 +477,6 @@ Here are the copyrights and the license type:
 <h3>Who is behind Eartho?</h3>
 
 <p>Hey! I'm Dvir Daniel, the creator of Eartho. I've been working in the IT industry for almost 10 years as a software engineer. Eartho started as my personal project with the goal to offer a privacy-first, open-source alternative to Google Sign-In. Right now, it's just me and a few friends helping out here and there. It's still early days for the project, but we’re improving it step by step and being as transparent as possible. Excited to have you join us on this journey!</p>
-
-<h3>Why does your privacy policy say you collect so much information?</h3>
-
-<p>We know our privacy policy might seem a bit overwhelming, and we get that. The reason it’s so detailed is because we're a new project, and we want to cover ourselves legally while we’re still figuring things out and improving. We’re being cautious to make sure we don’t miss anything and to leave room for mistakes as we grow.</p>
-
-<p>Our goal isn’t to collect unnecessary data or misuse your information. In fact, we're working hard to protect your privacy. But since we're still new and evolving, we’ve put everything in the policy to be safe and transparent with you. As the project develops, we’ll likely refine it and make things clearer over time.</p>
-
-<p><em>We’re committed to making privacy a priority, and this is just one step in that direction.</em></p>
 
 <h3>How is Eartho different from other authentication services like Auth0 or Keycloak?</h3>
 
