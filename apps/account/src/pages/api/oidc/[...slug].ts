@@ -1,13 +1,13 @@
 // pages/api/oidc/[...slug].ts
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { createOidcProvider } from '@/lib/external-oidc';
-import { auth } from '@/auth';
-import { serialize } from 'cookie';
 
 const provider = createOidcProvider();
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
+    const { slug } = req.query;
+
     // Set caching headers to disable caching
     res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
     res.setHeader('Pragma', 'no-cache');

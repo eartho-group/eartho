@@ -2,6 +2,10 @@
 import { Adapter, AdapterPayload } from 'oidc-provider';
 import { fdb, rdb } from '../googlecloud/db';
 
+function sanitizePayload(payload: Record<string, any>): Record<string, any> {
+  return JSON.parse(JSON.stringify(payload)); // Serializing removes undefined values
+}
+
 export default class GoogleCloudAdapter implements Adapter {
   private name: string;
 
@@ -13,9 +17,10 @@ export default class GoogleCloudAdapter implements Adapter {
    * Save data to Firebase with expiration.
    */
   async upsert(id: string, payload: AdapterPayload, expiresIn: number): Promise<void> {
+    const sanitizedPayload = sanitizePayload(payload); // Remove undefined values
     const ref = rdb.ref(`${this.name}/${id}`);
     await ref.set({
-      ...payload,
+      ...sanitizedPayload,
       expiresAt: Date.now() + expiresIn * 1000,
     });
     ref.onDisconnect().remove(); // Ensures data removal if the client disconnects
@@ -134,27 +139,5 @@ export default class GoogleCloudAdapter implements Adapter {
     });
 
     await rdb.ref().update(updates);
-  }
-
-  /**
-   * Find an account by ID. Uses Firestore as the data source.
-   */
-  async findAccount(ctx: any, id: string): Promise<{ accountId: string; claims: () => Promise<any> } | undefined> {
-    const snapshot = await fdb.doc(`users/${id}`).get();
-    const accountData = snapshot.data();
-
-    if (!accountData) return undefined;
-
-    return {
-      accountId: id,
-      claims: async () => ({
-        sub: id,
-        uid: accountData.uid,
-        displayName: accountData.displayName,
-        email: accountData.email,
-        photoURL: accountData.photoURL,
-        emailVerified: accountData.email_verified,
-      }),
-    };
   }
 }

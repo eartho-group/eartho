@@ -5,6 +5,11 @@ import { SUPPORTED_LOCALES } from './i18n';
 export function middleware(req: NextRequest) {
   const url = req.nextUrl.clone();
 
+  // Skip middleware for API routes
+  if (url.pathname.startsWith('/api') || url.pathname.startsWith('/.well-known')) {
+    return NextResponse.next();
+  }
+  
   const acceptLanguage = req.headers.get('accept-language');
   const cookieLocale = req.cookies.get('NEXT_LOCALE')?.value;
 
@@ -17,7 +22,7 @@ export function middleware(req: NextRequest) {
     if(!SUPPORTED_LOCALES.includes(finalLocale)){
       finalLocale = 'en';
     }
-    const res = NextResponse.redirect(url);
+    const res = NextResponse.next();
     res.cookies.set('NEXT_LOCALE', finalLocale, { maxAge: 60 * 60 * 24 * 365 }); // 1 year
     return res;
   }
