@@ -89,14 +89,7 @@ export function createOidcProvider() {
 
     // Reference to the account retrieval logic
     findAccount,
-
-    // Cookie configuration for session management
-    cookies: {
-      long: { signed: true, secure: process.env.NODE_ENV === 'production', path: '/', sameSite: 'lax' },
-      short: { signed: true, secure: process.env.NODE_ENV === 'production', path: '/', sameSite: 'lax' },
-      keys: [process.env.COOKIE_SECRET ?? (() => { throw new Error("Missing COOKIE_SECRET") })()],
-    },
-
+    
     // JSON Web Key Set (JWKS) for token signing, loaded from environment variables
     jwks: {
       keys: [
