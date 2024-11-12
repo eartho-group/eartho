@@ -1,29 +1,22 @@
 import { auth } from "@/auth";
-import { createOidcProvider } from "@/lib/external-oidc";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
-const oidc = createOidcProvider();
-
-// app/connect/page.tsx
 export default async function Page({
-  params,
   searchParams,
 }: {
   params: { slug: string };
-  searchParams: { [key: string]: string | string[] };
+  searchParams: Record<string, string | string[]>;
 }) {
-  const headersList = headers()
-  const host = headersList.get('host');
+  const host = headers().get('host');
+  const session = await auth();
+  const queryString = new URLSearchParams(searchParams as Record<string, string>).toString();
 
-  const redirectUri = searchParams.redirect_uri || '';
-  const clientId = searchParams.client_id || '';
+  if (!searchParams.client_id) return "Client id is missing";
 
-  if (!clientId || !redirectUri) {
-    redirect('/');
-    return
+  if (session?.accessToken) {
+    return redirect(`/connect/consent?${queryString}`);
+  } else {
+    return redirect(`/connect/login?${queryString}`);
   }
-
-  redirect('/api/oidc');
-  return (<div></div>);
 }

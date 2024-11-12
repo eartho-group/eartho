@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import ApprovalComponent from "./approval";
 import AuthLayout, { EntityData, fetchEntityData } from "../side-component";
 import { useTranslations } from 'next-intl';
+import { signOut } from "next-auth/react";
 
 
 export default function Page() {
@@ -19,7 +20,6 @@ export default function Page() {
 
     const clientId = searchParams?.get('client_id');
     const accessId = searchParams?.get('access_id');
-    const redirectUri = searchParams?.get('redirect_uri');
 
     const fetchData = async () => {
       try {
@@ -35,6 +35,7 @@ export default function Page() {
     fetchData();
   }, [searchParams, router]);
 
+  const onSignOut = `/connect?${searchParams?.toString() ?? ''}`;
 
   if (errorMessage) {
     return (
@@ -55,12 +56,15 @@ export default function Page() {
           <ApprovalComponent />
           <p
             className="px-8 text-center text-sm text-muted-foreground underline cursor-pointer"
-            // onClick={() =>
-            //   signOut({ redirect: false })
-            // }
+            onClick={() =>
+              signOut({ redirect: false }).then(x => {
+                router.replace(onSignOut)
+              })
+            }
           >
-            {/* {t('signOut')} */}
+            {t('signOut')}
           </p>
+
         </div>
       </div>
     </AuthLayout>

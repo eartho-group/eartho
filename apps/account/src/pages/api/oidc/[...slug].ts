@@ -14,7 +14,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.setHeader('Expires', '0');
     res.setHeader('Surrogate-Control', 'no-store');
 
-    // Proceed with OIDC callback if no interaction or login completion needed
     await provider.callback()(req, res);
   } catch (error) {
     console.error(`[OIDC] Error handling request at path ${req.url}:`, error);

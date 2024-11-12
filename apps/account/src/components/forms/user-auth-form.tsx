@@ -159,9 +159,9 @@ export default function UserAuthForm({ redirectUri = '/' }: UserAuthFormProps) {
     const currentUrl = window.location.href;
     sessionStorage.setItem('authReferrer', currentUrl);
     try {
-      const result = await signIn(provider, {
+      await signIn(provider, {
         redirect: true,
-        callbackUrl: redirectUri,
+        redirectTo: redirectUri,
       });
     } catch (error) {
       console.log(error);

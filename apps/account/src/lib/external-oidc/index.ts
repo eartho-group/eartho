@@ -83,7 +83,7 @@ export function createOidcProvider() {
         const clientId = ctx.oidc.params?.client_id;
         if (clientId) params.set('client_id', clientId.toString());
         params.set('interaction', interaction.uid);
-        return `/connect/${interaction.prompt.name}?${params.toString()}`;
+        return `/connect?${params.toString()}`;
       },
     },
 
