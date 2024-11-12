@@ -23,7 +23,7 @@ async function retrieveAccountById(id: string): Promise<LocalAccount | null> {
     if (!accountData) return null;
 
     return {
-      id,
+      id: accountData.id ?? accountData.uid,
       displayName: accountData.displayName,
       email: accountData.email,
       verifiedEmails: accountData.verifiedEmails,

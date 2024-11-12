@@ -8,7 +8,6 @@ interface Profile {
     displayName: string;
     about: string;
     type: string;
-    uid: string;
     photoURL: string;
     firstName: string;
     lastSignInTime: string;

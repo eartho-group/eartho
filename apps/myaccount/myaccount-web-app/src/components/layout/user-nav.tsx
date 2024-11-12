@@ -51,7 +51,7 @@ export function UserNav({ session }: UserNavProps) {
               {user.email}
             </p>
             <p className="text-xs leading-none text-muted-foreground">
-              {user.id || user.uid}
+              {user.id || user.id}
             </p>
           </div>
         </DropdownMenuLabel>

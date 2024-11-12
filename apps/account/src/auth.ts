@@ -16,12 +16,10 @@ import CryptoProvider from './lib/internal-auth/providers/crypto/provider';
 import EmailOtpProvider from './lib/internal-auth/providers/email/mailgun-otp';
 import PhoneOtpProvider from './lib/internal-auth/providers/phone/phone-otp';
 
-export const homePage = '/';
 export const loginPage = '/auth/signin';
 const TIME_TO_LIVE_SEC = 30 * 24 * 60 * 60; // 30 DAYS
 
 export const firestoreAdapter = FirestoreAdapter(fdb);
-
 
 const authOptions: NextAuthConfig = {
   pages: {
@@ -34,6 +32,15 @@ const authOptions: NextAuthConfig = {
     strategy: 'jwt',
     maxAge: TIME_TO_LIVE_SEC, // 30 days
   },
+  cookies: {
+    sessionToken: { name: `eartho.internal.account.session-token` },
+    callbackUrl: { name: `eartho.internal.account.callback-url` },
+    csrfToken: { name: `eartho.internal.account.csrf-token` },
+    pkceCodeVerifier: { name: `eartho.internal.account.pkce-code-verifier` },
+    state: { name: `eartho.internal.account.state` },
+    nonce: { name: `eartho.internal.account.nonce` },
+    webauthnChallenge: { name: `eartho.internal.account.webauthn-challenge` }
+  },  
   callbacks: {
     async jwt({ token, user, account }) {
 
@@ -42,7 +49,7 @@ const authOptions: NextAuthConfig = {
         const { id, uid, email, emailVerified, firstName, lastName, displayName, photoURL, verifiedEmails, accounts } = user as User;
         const newUser = { id, uid, email, emailVerified, firstName, lastName, displayName, photoURL, verifiedEmails, accounts } as User;
 
-        token.accessToken = await getEarthoToken(newUser , account, TIME_TO_LIVE_SEC);
+        token.accessToken = await getEarthoToken(newUser, account, TIME_TO_LIVE_SEC);
         token.accessTokenExpires = Date.now() + TIME_TO_LIVE_SEC * 1000;
         token.refreshToken = account.refresh_token;
         token.user = newUser;
@@ -57,6 +64,7 @@ const authOptions: NextAuthConfig = {
       return token;
     },
     async session({ session, token }) {
+
       if (token) {
         session.user = token.user as User;
         session.accessToken = token.accessToken as string;

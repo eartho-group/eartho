@@ -15,7 +15,7 @@ async function getData() {
   }
 
   try {
-    const res = await apiService.get(`/access/connection/?account=${session.user.uid}`, {
+    const res = await apiService.get(`/access/connection/?account=${session.user.id}`, {
       accessToken: session?.accessToken
     });
     return res || [];

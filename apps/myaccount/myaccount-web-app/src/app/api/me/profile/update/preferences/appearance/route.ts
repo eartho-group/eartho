@@ -10,7 +10,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       return NextResponse.json({ message: 'Not authenticated' }, { status: 401 });
     }
 
-    const userId = session.user.uid; // Adjust based on how your session stores the user ID
+    const userId = session.user.id; // Adjust based on how your session stores the user ID
     const data = await request.json();
     console.log(data);
 

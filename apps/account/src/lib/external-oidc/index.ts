@@ -49,6 +49,7 @@ export function createOidcProvider() {
     // Enable and configure OIDC features
     features: {
       devInteractions: { enabled: false },
+    
       deviceFlow: { enabled: true },
       revocation: { enabled: true },
       introspection: { enabled: true },

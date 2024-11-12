@@ -95,7 +95,7 @@ const ApprovalComponent: FC<ApprovalComponentProps> = ({ }) => {
             const data = await accessService.connect(clientId, currentPaymentMethod?.value)
             if (data.status === 'connected') {
                 // Complete the interaction via the API
-                const response = await fetch(`/api/oidc/interaction/${interactionId}/confirm`, {
+                const response = await fetch(`/api/oidc/interaction/${interactionId}/submit`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ interactionId }), // Pass interactionId if needed

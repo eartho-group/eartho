@@ -22,10 +22,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     // Retrieve the interaction details
-    const interactionDetails = await provider.interactionDetails(req, res);
-    const { prompt: { name, details }, params, session: interactionSession } = interactionDetails;
+    const interactionDetails = await provider.Interaction.find(interactionId);
+    if (!interactionDetails) {
+      throw new Error('interaction session not found');
+    }
 
-    assert.equal(name, 'consent');
+    if (interactionDetails.session?.uid) {
+      const session = await provider.Session.findByUid(interactionDetails.session.uid);
+      if (!session) {
+        throw new Error('session not found');
+      }
+      if (interactionDetails.session.accountId !== session.accountId) {
+        throw new Error('session principal changed');
+      }
+    }
+    const { prompt: { name, details }, params, session: interactionSession } = interactionDetails;
 
     // Create or modify an existing grant
     let grant;
@@ -39,27 +50,24 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       });
     }
 
-    // Add scopes and claims to the grant as required by the consent interaction
-    if (Array.isArray(details.missingOIDCScope)) {
-      grant.addOIDCScope(details.missingOIDCScope.join(' '));
-    }
-    if (Array.isArray(details.missingOIDCClaims)) {
-      grant.addOIDCClaims(details.missingOIDCClaims);
-    }
-    if (details.missingResourceScopes && typeof details.missingResourceScopes === 'object') {
-      for (const [indicator, scopes] of Object.entries(details.missingResourceScopes)) {
-        if (Array.isArray(scopes)) {
-          grant.addResourceScope(indicator, scopes.join(' '));
-        }
-      }
+    if (!grant.getOIDCScope().includes(params.scope as string)) {
+      grant.addOIDCScope(params.scope as string);
     }
 
     // Save the grant and complete the interaction
     const grantId = await grant.save();
-    const result = { consent: { grantId } };
-    const redirectUri = await provider.interactionResult(req, res, result, {
-      mergeWithLastSubmission: true,
-    });
+    const result = {
+      login: {
+        accountId: session.user.id,
+      }, 
+      consent: { grantId }
+    };
+
+    interactionDetails.result = result;
+
+    await interactionDetails.save(interactionDetails.exp - epochTime());
+
+    const redirectUri = interactionDetails.returnTo;
 
     res.status(200).json({ redirectUri });
   } catch (error) {
@@ -67,3 +75,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.status(500).json({ error: 'Internal Server Error' });
   }
 }
+function epochTime(date = Date.now()) {
+  return  Math.floor(date / 1000);
+}
+

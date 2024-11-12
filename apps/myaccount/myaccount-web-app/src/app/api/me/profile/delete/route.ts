@@ -16,7 +16,7 @@ export async function DELETE(req: NextRequest) {
       return NextResponse.json({ message: 'Invalid request or confirmation text' }, { status: 400 });
     }
 
-    if (session.user.uid !== userId) {
+    if (session.user.id !== userId) {
       return NextResponse.json({ message: 'Unauthorized' }, { status: 403 });
     }
 

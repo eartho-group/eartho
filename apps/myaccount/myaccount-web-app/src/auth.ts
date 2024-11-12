@@ -18,15 +18,22 @@ const authOptions: NextAuthConfig = {
     strategy: 'jwt',
     maxAge: TIME_TO_LIVE_SEC, // 30 days
   },
-
+  cookies: {
+    sessionToken: { name: `eartho.internal.myaccount.session-token` },
+    callbackUrl: { name: `eartho.internal.myaccount.callback-url` },
+    csrfToken: { name: `eartho.internal.myaccount.csrf-token` },
+    pkceCodeVerifier: { name: `eartho.internal.myaccount.pkce-code-verifier` },
+    state: { name: `eartho.internal.myaccount.state` },
+    nonce: { name: `eartho.internal.myaccount.nonce` },
+    webauthnChallenge: { name: `eartho.internal.myaccount.webauthn-challenge` }
+  },
   callbacks: {
-
     async jwt({ token, user, account }) {
 
       // Initial sign in
       if (account && user) {
         const { id, uid, email, firstName, lastName, displayName, photoURL, verifiedEmails } = user as User;
-        const newUser = { id, uid, email, firstName, lastName, displayName, photoURL, verifiedEmails } as User;
+        const newUser = { id:uid, email, firstName, lastName, displayName, photoURL, verifiedEmails } as User;
 
         token.accessToken = await getEarthoToken(newUser, account, TIME_TO_LIVE_SEC);
         token.accessTokenExpires = Date.now() + TIME_TO_LIVE_SEC * 1000;
@@ -64,7 +71,6 @@ const authOptions: NextAuthConfig = {
   // },
   providers: [
     {
-
       id: "eartho",
       name: "Eartho",
       type: "oidc",
@@ -85,6 +91,13 @@ const authOptions: NextAuthConfig = {
 
       idToken: false,
       checks: ["pkce"],
+
+      profile: (profile: any) => {
+        return {
+          uid: profile.id,
+          ...profile
+        }
+      }
     }
   ],
 };

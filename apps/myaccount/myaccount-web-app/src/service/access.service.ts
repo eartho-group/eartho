@@ -65,7 +65,7 @@ const AccessService = () => {
   const userConnections = async () => {
     const session = await getSession();
     if (!session?.user) throw new Error('Not authenticated');
-    return await apiService.get(`/access/connection/?account=${session.user.uid}`);
+    return await apiService.get(`/access/connection/?account=${session.user.id}`);
   };
 
   const getLicense = async (accessId: any) => {

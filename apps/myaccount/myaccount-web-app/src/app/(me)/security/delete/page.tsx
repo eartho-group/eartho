@@ -74,7 +74,7 @@ const DeleteMyAccount: React.FC = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ userId: session.user.uid, confirmationText: 'DELETE' })
+        body: JSON.stringify({ userId: session.user.id, confirmationText: 'DELETE' })
       });
 
       if (!response.ok) {
