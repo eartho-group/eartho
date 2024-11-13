@@ -270,13 +270,22 @@ Eartho is built for developers who care about privacy and security, but don't wa
 
 ## **Tech Stack** ⚙️
 
-- **Backend**: Next.js API for authentication + Node.js to manage overall data and endpoints
-- **Frontend**: Next.js (React)
-- **Database**: Firestore(Should be replaced)
-- **Cloud**: Google Cloud Platform (GCP)
-- **Authentication**: OAuth 2.0, JWT
+Account Module:
+- Next.js, 
+- NextAuth(Auth.js)
+- Oidc-Provider(Panva)
 
-- **Auth.js**: Our one module use auth.js
+MyAccount Module:
+- Next.js, 
+- NextAuth(Auth.js) - Use Account Module as provider
+
+Developers Module:
+- Next.js, 
+- NextAuth(Auth.js) - Use Account Module as provider
+
+Infra:
+- Database: Google Cloud Databases(Should be replaced)
+- Cloud: Google Cloud Platform (GCP)
 
 
 ## **Developer? Add Eartho to Your App**
