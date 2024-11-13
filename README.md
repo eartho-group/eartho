@@ -271,16 +271,16 @@ Eartho is built for developers who care about privacy and security, but don't wa
 ## **Tech Stack** ⚙️
 
 Account Module:
-- Next.js, 
+- Next.js
 - NextAuth(Auth.js)
 - Oidc-Provider(Panva)
 
 MyAccount Module:
-- Next.js, 
+- Next.js
 - NextAuth(Auth.js) - Use Account Module as provider
 
 Developers Module:
-- Next.js, 
+- Next.js
 - NextAuth(Auth.js) - Use Account Module as provider
 
 Infra:
