@@ -22,6 +22,14 @@ const nextConfig = {
       'abs.twimg.com'
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: '/.well-known/openid-configuration',
+        destination: '/api/oidc/.well-known/openid-configuration',
+      },
+    ];
+  },
   transpilePackages: ['next-auth'],
   experimental: {
     missingSuspenseWithCSRBailout: false,

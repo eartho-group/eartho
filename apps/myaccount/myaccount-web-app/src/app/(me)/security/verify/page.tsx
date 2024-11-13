@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ShieldCheck, X } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+import { UserService } from "@/service";
 
 interface EmailListProps {
   emails: string[];
@@ -175,12 +176,16 @@ const VerifiedEmails: React.FC = () => {
   const [isOtpSent, setIsOtpSent] = useState(false);
   const [emailToDelete, setEmailToDelete] = useState<string | null>(null);
 
+  const userService = UserService();
+
   useEffect(() => {
     const fetchEmails = async () => {
       try {
         const session = await getSession();
-        if (session?.user?.verifiedEmails) {
-          setEmails(session.user.verifiedEmails);
+        const user = await userService.getUserProfile(session?.accessToken!);
+
+        if (user?.verifiedEmails) {
+          setEmails(user.verifiedEmails);
         }
       } catch (err) {
         handleError(error);

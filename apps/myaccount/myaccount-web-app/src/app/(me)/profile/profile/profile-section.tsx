@@ -6,16 +6,19 @@ import { ProfileForm, ProfileFormValues } from "./profile-form";
 import UserService from '@/service/user.service';
 import { toast } from '@/components/ui/use-toast';
 import ProfileFormSkeleton from './profile-loader';
+import { useSession } from 'next-auth/react';
 
 const ProfileSection = () => {
     const userSerivce = UserService();
   const [profile, setProfile] = useState<ProfileFormValues | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
+  const { data: session, update } = useSession();
+
   useEffect(() => {
     const fetchProfileData = async () => {
       setLoading(true)
-      const data = await userSerivce.getUserProfile();
+      const data = await userSerivce.getUserProfile(session?.accessToken!);
       setProfile(data);
       setLoading(false)
     };
@@ -25,8 +28,9 @@ const ProfileSection = () => {
 
   const handleUpdateProfile = async (updatedData: ProfileFormValues) => {
     try {
-      const updatedProfile = await userSerivce.updateUserProfile(updatedData);
+      const updatedProfile = await userSerivce.updateUserProfile(session?.accessToken!, updatedData);
       setProfile(updatedProfile);
+      update()
       toast({
       title: "Your profile has been updated successfully",
       description:"It may take a few minutes for the changes to appear in other services",

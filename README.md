@@ -299,57 +299,51 @@ Enhance your app’s authentication with Eartho. It provides a **privacy-first l
 - **No Migration Needed**: Continue using existing authentication providers without the need to migrate users or disrupt their experience. Eartho enhances privacy while keeping everything intact.
 - **Advanced Security Features**: Eartho comes with an **advanced antifraud system**, using on-device machine learning to verify user authenticity and prevent fraud.
 
-### **How to Add Eartho**
-1. **Install the SDK**  
-   Begin by installing the Eartho SDK via npm or yarn:
-   ```bash
-   npm install @eartho/one-client-js
-   ```
-   or
-   ```bash
-   yarn add @eartho/one-client-js
-   ```
 
-2. **Initialize Eartho in Your App**  
-   Configure Eartho by adding the following code snippet to your application:
-   ```javascript
-   import Eartho from '@eartho/one-client-js';
+<h2>How to Add Eartho Authentication</h2>
 
-   const eartho = new EarthoOne({
-       client_id: 'YOUR_CLIENT_ID',
-       redirect_uri: 'YOUR_REDIRECT_URI'
-   });
-   ```
+<p>Eartho offers two primary methods for integrating secure, privacy-first authentication into your application: via the OIDC Provider or by using the Eartho SDK. Choose the option that best fits your setup and requirements.</p>
 
-3. **Add Login and Logout Features**  
-   Implement login and logout functionality to allow users to sign in or out securely:
-   ```javascript
-   function login() {
-       eartho.connectWithPopup().then(result => {
-           console.log('Logged in as:', result.token);
-           console.log('Logged in as:', result.user);
+<h2>Option 1: Using Eartho OIDC Provider</h2>
 
-           auth0/nextauth/firebase/supabase/clerk.loginWithCustomToken(result.token);
-       }).catch(err => {
-           console.error('Login failed:', err);
-       });
-   }
+<p>If your application already supports OpenID Connect (OIDC), integrating Eartho as an OIDC provider is a flexible, secure, and standards-compliant choice. This method is highly compatible with popular libraries and frameworks, making it easy to add Eartho to existing setups.</p>
 
-   function logout() {
-       eartho.disconnect();
-   }
-   ```
+<h3>Integration with Popular OIDC Libraries</h3>
 
+<p>Using Eartho’s OIDC endpoints, you can seamlessly integrate with many popular libraries and frameworks, including:</p>
 
-### **Supported Platforms**
-Eartho works seamlessly with a wide range of environments, including:
-- **Firebase Auth**
-- **Auth0**
-- **Okta**
-- **Clerk**
-- **Custom OAuth Providers**
+<ul>
+  <li><strong>Auth.js</strong> - A versatile library for OAuth and OIDC providers.</li>
+  <li><strong>Keycloak</strong> - Open-source identity management, supporting SSO with Eartho.</li>
+  <li><strong>Auth0</strong> - Universal authentication platform, configurable with Eartho as an OIDC provider.</li>
+  <li><strong>Passport.js</strong> - Middleware for Node.js supporting custom OIDC strategies like Eartho.</li>
+  <li><strong>Okta</strong> - Enterprise identity and access management platform with support for custom OIDC providers.</li>
+  <li><strong>Firebase Auth</strong> - Firebase's authentication service that can be configured to accept tokens from Eartho.</li>
+  <li><strong>Clerk</strong> - User management and authentication solution, compatible with custom OIDC providers like Eartho.</li>
+  <li><strong>SuperTokens</strong> - Open-source authentication library that supports integration with custom OIDC providers.</li>
+  <li><strong>Supabase</strong> - Open-source Firebase alternative with authentication that can be integrated with Eartho’s OIDC for added flexibility.</li>
+  <li><strong>StackAuth</strong> - A secure authentication solution that supports multiple providers, configurable with Eartho’s OIDC.</li>
+</ul>
 
-It supports various platforms—web, mobile, and browser extensions—making Eartho ideal for any project.
+<h3>Configuration</h3>
+
+<ol>
+  <li><strong>Set the Issuer</strong>  
+    <p>Configure Eartho as your OIDC provider by setting the <code>issuer</code> and <code>wellKnown</code> fields. This allows your app to retrieve Eartho’s OIDC configuration.</p>
+    <pre><code>issuer: "https://account.eartho.io"
+wellKnown: "https://account.eartho.io/.well-known/openid-configuration"</code></pre>
+  </li>
+  <li><strong>Redirect URI Setup</strong>  
+    <p>Ensure your Eartho application is configured to recognize your app’s redirect URI, where Eartho will return authorization codes or tokens after authentication.</p>
+  </li>
+  <li><strong>Benefits of OIDC Integration</strong>  
+    <ul>
+      <li><strong>Standardized Protocol:</strong> Provides a robust, industry-standard authentication approach.</li>
+      <li><strong>Enhanced Security:</strong> Leveraging Eartho’s secure OIDC flow minimizes unauthorized access.</li>
+      <li><strong>Compatibility:</strong> Integrates with other OIDC-compatible identity providers and authentication systems.</li>
+    </ul>
+  </li>
+</ol>
 
 ## Authentication Methods Supported
 

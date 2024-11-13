@@ -1,33 +1,29 @@
-import { getSession } from 'next-auth/react';
 import apiService from './api.service';
-import { Session } from 'next-auth';
 
 export default function UserService() {
 
-  async function getUserProfile() {
-    const session = await getSession();
+  async function getUserProfile(accessToken: string) {
     const data = await apiService.get('/me/profile', {
-      accessToken: session?.accessToken,
-    });
+      accessToken,
+      cache: 'no-store'
+    }, {});
     return data;
   }
 
-  async function updateUserProfile(payload: any) {
-    const session = await getSession();
+  async function updateUserProfile(accessToken: string, payload: any) {
     const data = await apiService.put(
       '/me/profile',
       payload,
       {
-        accessToken: session?.accessToken,
+        accessToken,
       }
     );
     return data;
   }
 
-  async function getUserStatistics(session: Session | null) {
-    const s = session //|| await getSession();
+  async function getUserStatistics(accessToken: string) {
     const data = await apiService.get('/me/statistics', {
-      accessToken: session?.accessToken,
+      accessToken,
     });
     return data;
   }

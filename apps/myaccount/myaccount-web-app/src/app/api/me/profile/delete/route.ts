@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { firestore, usersCollection, authAccountsCollection } from '@/lib/firestore'; // Adjust based on your Firestore setup
+import { firestore, usersCollection, authAccountsCollection } from '@/lib/googlecloud'; // Adjust based on your Firestore setup
 import { auth } from '@/auth';
 
 export async function DELETE(req: NextRequest) {

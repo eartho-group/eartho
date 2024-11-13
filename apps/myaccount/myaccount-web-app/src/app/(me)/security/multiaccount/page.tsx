@@ -7,6 +7,7 @@ import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuIte
 import { signIn, getSession } from "next-auth/react";
 import { Skeleton } from "@/components/ui/skeleton";
 import Image from "next/image";
+import { UserService } from "@/service";
 
 interface Provider {
   icon: string;
@@ -37,12 +38,15 @@ const ConnectedAccounts: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const userService = UserService();
+
   useEffect(() => {
     const fetchAccounts = async () => {
       try {
         const session = await getSession();
-        if (session?.user?.accounts) {
-          setAccounts(Object.values(session.user.accounts));
+        const user = await userService.getUserProfile(session?.accessToken!);
+        if (user?.accounts) {
+          setAccounts(Object.values(user?.accounts));
         }
       } catch (err: unknown) {
         if (err instanceof Error) {

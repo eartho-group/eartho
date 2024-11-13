@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { firestore, usersCollection } from '@/lib/firestore';
+import { firestore, usersCollection } from '@/lib/googlecloud';
 import { auth } from '@/auth';
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
@@ -10,7 +10,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       return NextResponse.json({ message: 'Not authenticated' }, { status: 401 });
     }
 
-    const userId = session.user.id; // Adjust based on how your session stores the user ID
+    const userId = session.user.id!; // Adjust based on how your session stores the user ID
     const data = await request.json();
 
     const validFields = {

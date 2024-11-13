@@ -1,4 +1,4 @@
-import NextAuth, { Account, customFetch, JWT, NextAuthConfig, Session } from 'next-auth';
+import NextAuth, { NextAuthConfig, Session, User } from 'next-auth';
 
 import { redirect } from 'next/navigation';
 import { getEarthoToken } from './lib/auth/earthotoken';
@@ -29,16 +29,13 @@ const authOptions: NextAuthConfig = {
   },
   callbacks: {
     async jwt({ token, user, account }) {
-
       // Initial sign in
       if (account && user) {
-        const { id, uid, email, firstName, lastName, displayName, photoURL, verifiedEmails } = user as User;
-        const newUser = { id:uid, email, firstName, lastName, displayName, photoURL, verifiedEmails } as User;
-
-        token.accessToken = await getEarthoToken(newUser, account, TIME_TO_LIVE_SEC);
+        user.id = (user as any).uid;
+        token.accessToken = await getEarthoToken(user, account, TIME_TO_LIVE_SEC);
         token.accessTokenExpires = Date.now() + TIME_TO_LIVE_SEC * 1000;
         token.refreshToken = account.refresh_token;
-        token.user = newUser;
+        token.user = user;
       }
 
       // Return previous token if the access token has not expired yet
@@ -51,13 +48,31 @@ const authOptions: NextAuthConfig = {
     },
     async session({ session, token }) {
       if (token) {
-        session.user = token.user as User;
         session.accessToken = token.accessToken as string;
       }
-
       return session;
     },
   },
+  providers: [
+    {
+      id: "eartho",
+      name: "Eartho",
+      type: "oidc",
+      issuer: "https://account.eartho.io",
+      clientId: process.env.EARTHO_ACCOUNT_CLIENT_ID,
+      clientSecret: process.env.EARTHO_ACCOUNT_CLIENT_SECRET,
+      idToken: false,
+      checks: ["pkce"],
+      profile: (profile: any) => {
+        return {
+          id: profile.sub,
+          uid: profile.sub,
+          image: profile.picture,
+          ...profile
+        }
+      }
+    }
+  ],
   // logger: {
   //   error(code, ...message) {
   //     console.error(code, message)
@@ -69,46 +84,16 @@ const authOptions: NextAuthConfig = {
   //     console.debug(code, message)
   //   },
   // },
-  providers: [
-    {
-      id: "eartho",
-      name: "Eartho",
-      type: "oidc",
-      issuer: "https://account.eartho.io",
-      clientId: process.env.EARTHO_ACCOUNT_CLIENT_ID,
-      clientSecret: process.env.EARTHO_ACCOUNT_CLIENT_SECRET,
 
-      wellKnown: "https://account.eartho.io/.well-known/openid-configuration",
-
-      authorization: {
-        url: "https://account.eartho.io/api/oidc/auth",
-        params: {
-          scope: "openid email profile",
-        },
-      },
-      token: "https://account.eartho.io/api/oidc/token",
-      userinfo: "https://account.eartho.io/api/oidc/userinfo",
-
-      idToken: false,
-      checks: ["pkce"],
-
-      profile: (profile: any) => {
-        return {
-          uid: profile.id,
-          ...profile
-        }
-      }
-    }
-  ],
 };
 
 const { handlers, signIn, signOut, auth } = NextAuth(authOptions);
 
-async function protectAuth() {
+async function protectAuth(): Promise<Session> {
   const session = await auth();
   if (!session) {
     redirect(loginPage);
-    return null;
+    throw Error();
   }
   return session;
 }
@@ -127,17 +112,4 @@ declare module 'next-auth' {
     refreshToken?: string;
     user?: User;
   }
-}
-
-interface User {
-  id: string;
-  uid: string;
-  email: string;
-  emailVerified: null
-  firstName?: string | null;
-  lastName?: string | null;
-  displayName?: string | null;
-  photoURL?: string | null;
-  verifiedEmails?: string[] | null;
-  accounts?: Map<string, any> | null;
 }

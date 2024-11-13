@@ -1,13 +1,13 @@
-import { KoaContextWithOIDC, Account, ClaimsParameterMember, FindAccount, AccountClaims } from 'oidc-provider';
+import { KoaContextWithOIDC, Account, AccountClaims } from 'oidc-provider';
 import { fdb } from '../googlecloud/db';
 
 interface LocalAccount {
   id: string;
   displayName?: string;
   email?: string;
-  verifiedEmails?: string[];  // Array of verified emails
+  verifiedEmails?: string[];
   phone?: string;
-  verifiedPhones?: string[];    // Array of verified phones
+  verifiedPhones?: string[];
   birthdate?: string;
   firstName?: string;
   lastName?: string;
@@ -50,18 +50,17 @@ async function findAccount(ctx: KoaContextWithOIDC, id: string): Promise<Account
     accountId: account.id,
     async claims(use: string, scope: string): Promise<AccountClaims> {
       const claims: AccountClaims = {
-        sub: account.id ?? id,
-        id: account.id ?? id,
-        displayName: account.displayName,
+        sub: account.id,
+        name: account.displayName,
         email: account.email,
-        verifiedEmails: account.verifiedEmails,
-        phone: account.phone,
-        verifiedPhones: account.verifiedPhones,
+        email_verified: account.verifiedEmails?.includes(account.email ?? '') ?? false,
+        phone_number: account.phone,
+        phone_number_verified: account.verifiedPhones?.includes(account.phone ?? '') ?? false,
         birthdate: account.birthdate,
-        firstName: account.firstName,
-        lastName: account.lastName,
+        given_name: account.firstName,
+        family_name: account.lastName,
         locale: account.locale,
-        photoURL: account.photoURL,
+        picture: account.photoURL,
       };
       return claims;
     },

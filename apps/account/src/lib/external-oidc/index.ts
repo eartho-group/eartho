@@ -17,6 +17,23 @@ export function createOidcProvider() {
     // No pre-configured clients, clients should be registered as needed
     clients: [],
 
+    // Allow CORS requests from any origin
+    clientBasedCORS: () => true,
+
+    // Enable and configure OIDC features
+    features: {
+      devInteractions: { enabled: false },
+
+      deviceFlow: { enabled: true },
+      revocation: { enabled: true },
+      introspection: { enabled: true },
+      webMessageResponseMode: { enabled: true },
+      claimsParameter: { enabled: true },
+    },
+
+    // Enables rotating refresh tokens
+    rotateRefreshToken: true,
+
     // Define routes for various OIDC endpoints
     routes: {
       authorization: '/api/oidc/auth',
@@ -43,37 +60,40 @@ export function createOidcProvider() {
       response_types: ['code', 'id_token'],
     },
 
-    // Allow CORS requests from any origin
-    clientBasedCORS: () => true,
-
-    // Enable and configure OIDC features
-    features: {
-      devInteractions: { enabled: false },
-    
-      deviceFlow: { enabled: true },
-      revocation: { enabled: true },
-      introspection: { enabled: true },
-      webMessageResponseMode: { enabled: true },
-      claimsParameter: { enabled: true },
-    },
-
-    // Enables rotating refresh tokens
-    rotateRefreshToken: true,
-
     // Defines the available claims and their scopes
     claims: {
-      address: ['address'],
-      email: ['email', 'verifiedEmails'],
-      phone: ['phone', 'verifiedPhone'],
-      profile: ['id', 'birthdate', 'firstName', 'gender', 'lastName', 'locale', 'displayName', 'photoURL'],
+      profile: [
+        'sub',            // Subject Identifier (User ID)
+        'name',           // Full name
+        'given_name',     // First name
+        'family_name',    // Last name
+        'preferred_username', // Username or display name
+        'picture',        // Profile picture URL
+        'birthdate',      // Date of birth
+        'locale',         // User's locale
+        'updated_at'      // Profile last updated timestamp
+      ],
+      email: [
+        'email',          // Email address
+        'email_verified'  // Email verification status
+      ],
+      phone: [
+        'phone_number',   // Phone number
+        'phone_number_verified' // Phone number verification status
+      ],
+      address: [
+        'address'         // Physical address
+      ]
     },
     // Define extra parameters for handling scope dynamically
     extraParams: {
+      access_id(ctx, value) {
+        if (ctx.oidc.params)
+          ctx.oidc.params.access_id ||= value || ''; // Ensures access_id is set or defaults to an empty string
+      },
       scope(ctx, value, client) {
-        if (ctx.oidc.params) {
-          // Set default scope if not provided
-          ctx.oidc.params.scope ||= value || client.scope || 'openid profile email';
-        }
+        if (ctx.oidc.params)
+          ctx.oidc.params.scope ||= value || client.scope || 'openid profile email'; // Default scope if not provided
       },
     },
     // Interaction URLs, with client_id and interaction UID as parameters

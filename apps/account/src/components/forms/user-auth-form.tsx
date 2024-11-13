@@ -3,13 +3,13 @@
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { signIn, useSession } from "next-auth/react";
-import { handleMetaMaskLogin } from "@/lib/internal-auth/providers/crypto/service";
-import { Web3Modal } from "@/lib/internal-auth/providers/crypto/web3modal";
-import { useWeb3Modal, useWeb3ModalAccount, useWeb3ModalProvider } from "@web3modal/ethers/react";
-import { BrowserProvider, ethers } from "ethers";
+import { handleMetaMaskLogin } from "@/lib/internal-auth/providers/crypto/metamask-service";
+import { isEip1193Provider, Web3Modal } from "@/lib/internal-auth/providers/crypto/reown";
+import { BrowserProvider, Eip1193Provider, ethers } from "ethers";
 import { Loader2 } from "lucide-react";
 import { Icons } from "@/components/icons";
 import { handleAuthError } from "@/lib/internal-auth/util";
+import { useAppKitProvider, useAppKitAccount, useAppKit } from "@reown/appkit/react"
 
 interface UserAuthFormProps {
   redirectUri?: string;
@@ -18,9 +18,9 @@ interface UserAuthFormProps {
 export default function UserAuthForm({ redirectUri = '/' }: UserAuthFormProps) {
   const [loadingProvider, setLoadingProvider] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null); // State to store error message
-  const { open } = useWeb3Modal();
-  const { walletProvider } = useWeb3ModalProvider();
-  const { address, isConnected } = useWeb3ModalAccount();
+  const { open } = useAppKit();
+  const { walletProvider } = useAppKitProvider('eip155');
+  const { address, isConnected } = useAppKitAccount();
   const { data: session } = useSession();
 
   const router = useRouter();
@@ -35,7 +35,7 @@ export default function UserAuthForm({ redirectUri = '/' }: UserAuthFormProps) {
       if (errorStorageParam && !errorQueryParam) {
         sessionStorage.removeItem('authError');
         setErrorMessage(errorStorageParam); // Set error message if error query param exists
-        console.log("error "+errorStorageParam);
+        console.log("error " + errorStorageParam);
       }
     }
   }, []);
@@ -125,7 +125,7 @@ export default function UserAuthForm({ redirectUri = '/' }: UserAuthFormProps) {
             const { nonce } = await response.json();
 
             if (!walletProvider) return;
-            const ethersProvider = new BrowserProvider(walletProvider);
+            const ethersProvider = new BrowserProvider(walletProvider as Eip1193Provider)
             const signer = await ethersProvider.getSigner();
             const signedNonce = await signer.signMessage(nonce);
 

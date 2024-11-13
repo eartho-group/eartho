@@ -38,7 +38,7 @@
     "src/auth.ts",
     "src/lib/internal-auth/googledb-adapter",
     "build/types/**/*.ts"
-  ],
+, "src/pages/api/oidc/.well-known/openid-configuration.ts"  ],
   "exclude": [
     "node_modules"
   ]

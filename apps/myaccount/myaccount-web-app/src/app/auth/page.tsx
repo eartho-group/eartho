@@ -1,22 +1,31 @@
 "use client"
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 
 export default function Page() {
-  const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
 
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleLogin = async () => {
+  const { data: session, status } = useSession();
+
+  const handleLogin = (e: any) => {
+    e.preventDefault();
     setLoading(true);
+
     try {
-      signIn("eartho", { redirect: true, redirectTo: "/" });
+      const currentUrl = window.location.href;
+      sessionStorage.setItem("authReferrer", currentUrl);
+
+      signIn("eartho", { redirect: true, redirectTo: '/' }, { access_id: "" });
     } catch (error) {
       console.error("Login failed:", error);
       toast({
@@ -24,8 +33,31 @@ export default function Page() {
         title: "Uh oh! Something went wrong.",
         description: "Please contact support.",
       });
-    } finally {
-      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (window && window.sessionStorage) {
+      const errorStorageParam = sessionStorage.getItem("authError");
+      if (errorStorageParam && !searchParams?.get("error")) {
+        sessionStorage.removeItem("authError");
+        setErrorMessage(errorStorageParam);
+      }
+    }
+  }, [searchParams]);
+
+  const getErrorMessage = (error: string) => {
+    switch (error) {
+      case "CredentialsSignin":
+        return "Invalid credentials, please try again.";
+      case "OAuthAccountNotLinked":
+        return "Account already exists with another provider. Use the same account to link.";
+      case "EmailSignin":
+        return "Issue sending the email.";
+      case "Configuration":
+        return "This provider is restricted in your country.";
+      default:
+        return "Please contact support.";
     }
   };
 
@@ -48,9 +80,8 @@ export default function Page() {
         <div className="relative z-20 mt-auto">
           <blockquote className="space-y-2">
             <p className="text-lg">
-              {/* &ldquo;We replaced 37,000 lines of code with ~50 lines of @Eartho integration and can’t imagine working without it.&rdquo; */}
+              {/* Optional quote or info */}
             </p>
-            {/* <footer className="text-sm">Ilya K</footer> */}
           </blockquote>
         </div>
       </div>
@@ -58,7 +89,7 @@ export default function Page() {
         <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
           <div className="flex flex-col space-y-2 text-center">
             <h1 className="text-2xl font-semibold tracking-tight text-white">
-              Welcome to Eartho Memebers
+              Welcome to Eartho
             </h1>
             <p className="text-sm text-muted-foreground">
               Click on the button below to connect and start
@@ -67,7 +98,6 @@ export default function Page() {
           <Button
             disabled={loading}
             className="ml-auto w-full"
-            type="submit"
             onClick={handleLogin}
           >
             {loading ? (
@@ -76,6 +106,11 @@ export default function Page() {
               "Continue With Eartho account"
             )}
           </Button>
+          {errorMessage && (
+            <div className="flex justify-center items-center mt-4 text-red-500 text-sm font-medium text-center content-center">
+              {getErrorMessage(errorMessage)}
+            </div>
+          )}
           <p className="px-8 text-center text-sm text-muted-foreground">
             By clicking continue, you agree to our{' '}
             <Link

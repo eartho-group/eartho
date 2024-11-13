@@ -12,7 +12,7 @@ import { fdb } from './lib/googlecloud/db';
 import { FirestoreAdapter } from './lib/internal-auth/googledb-adapter/adapter';
 import { redirect } from 'next/navigation';
 import { getEarthoToken } from './lib/internal-auth/earthotoken/earthotoken';
-import CryptoProvider from './lib/internal-auth/providers/crypto/provider';
+import CryptoProvider from './lib/internal-auth/providers/crypto/nextauth-crypto-provider';
 import EmailOtpProvider from './lib/internal-auth/providers/email/mailgun-otp';
 import PhoneOtpProvider from './lib/internal-auth/providers/phone/phone-otp';
 

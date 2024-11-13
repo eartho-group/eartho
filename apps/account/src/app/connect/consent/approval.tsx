@@ -90,12 +90,12 @@ const ApprovalComponent: FC<ApprovalComponentProps> = ({ }) => {
         try {
             if (!searchParams) return
 
-            const interactionId = searchParams?.get('interaction') || ''; 
+            const interactionId = searchParams?.get('interaction') || '';
 
-            const data = await accessService.connect(clientId, currentPaymentMethod?.value)
+            const data = await accessService.connect(accessId ?? clientId, currentPaymentMethod?.value)
             if (data.status === 'connected') {
                 // Complete the interaction via the API
-                const response = await fetch(`/api/oidc/interaction/${interactionId}/submit`, {
+                const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/api/oidc/interaction/${interactionId}/submit`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ interactionId }), // Pass interactionId if needed

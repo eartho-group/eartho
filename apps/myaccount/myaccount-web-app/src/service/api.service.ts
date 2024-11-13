@@ -3,7 +3,7 @@ import config from "@/constants/config";
 
 interface RequestOptions {
   method?: string;
-  cache?: string;
+  cache?: RequestCache;
   headers?: Record<string, string>;
   body?: any;
   accessToken?: string;
@@ -22,7 +22,6 @@ class ApiService {
     const url = this.createUrl(endpoint, params);
 
     const defaultHeaders = {
-      'auth-provider': 'one.eartho',
       'Authorization': options.accessToken ? `Bearer ${options.accessToken}` : '',
       'Content-Type': 'application/json',
     };
@@ -36,6 +35,7 @@ class ApiService {
       body: options.body || undefined,
       method: options.method,
       headers: headers,
+      cache: options.cache || undefined,
     };
 
     try {
@@ -72,8 +72,7 @@ class ApiService {
       {
         method: "POST",
         body: formData,
-        headers:{
-          'auth-provider': 'one.eartho',
+        headers: {
           'Authorization': options.accessToken ? `Bearer ${options.accessToken}` : '',
         }
       }
