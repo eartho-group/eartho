@@ -81,7 +81,9 @@ export function createOidcProvider() {
       url: (ctx: KoaContextWithOIDC, interaction): string => {
         const params = new URLSearchParams();
         const clientId = ctx.oidc.params?.client_id;
+        const accessId = ctx.oidc.params?.access_id;
         if (clientId) params.set('client_id', clientId.toString());
+        if (accessId) params.set('access_id', accessId.toString());
         params.set('interaction', interaction.uid);
         return `/connect?${params.toString()}`;
       },
@@ -89,7 +91,7 @@ export function createOidcProvider() {
 
     // Reference to the account retrieval logic
     findAccount,
-    
+
     // JSON Web Key Set (JWKS) for token signing, loaded from environment variables
     jwks: {
       keys: [
