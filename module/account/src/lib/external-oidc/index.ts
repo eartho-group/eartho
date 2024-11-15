@@ -34,6 +34,9 @@ export function createOidcProvider() {
     // Enables rotating refresh tokens
     rotateRefreshToken: true,
 
+    //Returns token with user object
+    conformIdTokenClaims: false,
+
     // Define routes for various OIDC endpoints
     routes: {
       authorization: '/api/oidc/auth',
