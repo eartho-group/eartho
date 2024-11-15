@@ -21,7 +21,7 @@ Please note: We take Eartho's security and our users' trust very seriously. If y
 <h3 align="center">
   <a href="https://eartho.io">Website</a>
   | <a href="https://myaccount.eartho.io">Open Eartho Account</a>
-  | <a href="https://creator.eartho.io">Developers Dasboard</a>
+  | <a href="https://console.eartho.io">Developers Dasboard</a>
   | <a href="https://www.eartho.io/developers/demo/login-oauth">Demo</a>
   | <a href="https://discord.gg/5QbuTNTG2q">Our Discord</a>
   | <a href="contact@eartho.io">Our Email</a>  
