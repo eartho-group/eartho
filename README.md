@@ -2,6 +2,13 @@
   <a href="https://eartho.io">
     <img src="https://github.com/eartho-group/media/blob/main/eartho_cover_1.png" alt="Logo">
   </a>
+
+---
+
+Please note: We take Eartho's security and our users' trust very seriously. If you believe you have found a security issue in Eartho, please responsibly disclose by contacting us at contact@eartho.io
+
+---
+  
   <h1>The Open-Source, <br /> Privacy-Focused Alternative to Google Sign-In <br/> (In Construction, Join Us)</h1>
   <p>
     <b>Eartho</b> is an open-source sign-in alternative for users that prioritizes convenience & user privacy.<br />
